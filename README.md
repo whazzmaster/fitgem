@@ -8,7 +8,7 @@ The fitbit.com API is currently (March 2011) in BETA and is under development to
 
 # Changelog #
 
-* 18 March, 2001: First revision. Supports the auth process via oauth, and retrieval of user info, activities, and foods.
+* 18 March, 2001: First revision. Supports the auth process via oauth, and retrieval of user info and activities.
 
 # Usage #
 
@@ -27,7 +27,7 @@ to create a new gem that I could design from scratch.
 
 First off, that isn't a question. Second off... I shamelessly stole the 'Client' code from the excellent [twitter_oauth client](https://github.com/moomerman/twitter_oauth 'twitter_oauth') and refactored slightly to serve my ends for this particular interface.
 
-I wouldn't have been able to spin up so fast without the example of twitter_oauth (due to my oauth nubness) to show how to use the [oauth](http://rubygems.org/gems/oauth 'oauth gem')
+I wouldn't have been able to spin up so fast without the example of twitter_oauth (due to my oauth nubness) to show how to use the [oauth](http://rubygems.org/gems/oauth 'oauth gem') gem in the typical auth scenario.
 
 #  Contributing to fitbit #
  
@@ -39,7 +39,7 @@ I wouldn't have been able to spin up so fast without the example of twitter_oaut
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-= Copyright
+### Copyright ###
 
 Copyright (c) 2011 Zachery Moneypenny. See LICENSE.txt for further details.
 
