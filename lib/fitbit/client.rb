@@ -1,7 +1,12 @@
+require 'fitbit/users'
+require 'fitbit/activities'
+require 'fitbit/units'
+
 module Fitbit
   class Client
-    cattr_accessor :api_version
-    @@api_version = "1"
+    
+    attr_accessor :api_version
+    attr_accessor :api_unit_system
     
     def initialize(options = {})
       @consumer_key = options[:consumer_key]
@@ -9,6 +14,8 @@ module Fitbit
       @token = options[:token]
       @secret = options[:secret]
       @proxy = options[:proxy]
+      @api_unit_system = Fitbit::ApiUnitSystem.US
+      @api_version = "1"
     end
 
     def authorize(token, secret, options = {})
@@ -54,20 +61,20 @@ module Fitbit
       end
 
       def get(path, headers={})
-        headers.merge!("User-Agent" => "fitbit gem v#{Fitbit::VERSION}")
-        oauth_response = access_token.get("/1#{path}", headers)
+        headers.merge!("User-Agent" => "fitbit gem v#{Fitbit::VERSION}", "Accept-Language" => @api_unit_system)
+        oauth_response = access_token.get("/#{@api_version}#{path}", headers)
         JSON.parse(oauth_response.body)
       end
 
       def post(path, body='', headers={})
-        headers.merge!("User-Agent" => "fitbit gem v#{Fitbit::VERSION}")
-        oauth_response = access_token.post("/1#{path}", body, headers)
+        headers.merge!("User-Agent" => "fitbit gem v#{Fitbit::VERSION}", "Accept-Language" => @api_unit_system)
+        oauth_response = access_token.post("/#{@api_version}#{path}", body, headers)
         JSON.parse(oauth_response.body)
       end
 
       def delete(path, headers={})
-        headers.merge!("User-Agent" => "fitbit gem v#{Fitbit::VERSION}")
-        oauth_response = access_token.delete("/1#{path}", headers)
+        headers.merge!("User-Agent" => "fitbit gem v#{Fitbit::VERSION}", "Accept-Language" => @api_unit_system)
+        oauth_response = access_token.delete("/#{@api_version}#{path}", headers)
         JSON.parse(oauth_response.body)
       end
   end

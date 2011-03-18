@@ -1,12 +1,15 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
+$:.push File.join(File.dirname(__FILE__), '.', 'lib')
+
+require 'fitbit'
 
 Gem::Specification.new do |s|
   s.name        = "fitbit"
   s.version     = Fitbit::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Zachery Moneypenny"]
-  s.email       = ["gems@whazzmaster.com"]
+  s.email       = ["fitbit-gem@whazzmaster.com"]
   s.homepage    = "http://github.com/whazzmaster/fitbit"
   s.summary     = %q{OAuth client library to the data on Fitbit.com}
   s.description = %q{A client library to send and retrieve workout/weight data from Fitbit.com}
