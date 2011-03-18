@@ -12,22 +12,22 @@ The fitbit.com API is currently (March 2011) in BETA and is under development to
 
 # Usage #
 
-If you've ever done any oauth client programming then the model will appear familiar.  Your first step, if haven't already, is to visit [https://dev.fitbit.com/]{https://dev.fitbit.com/} and register your application to get your __consumer key__ and __consumer secret__ and set your __callback URL__, if appropriate for your app.  There's more documentation at the site so I won't belabor it here.
+If you've ever done any oauth client programming then the model will appear familiar.  Your first step, if haven't already, is to visit [https://dev.fitbit.com/](https://dev.fitbit.com/) and register your application to get your __consumer key__ and __consumer secret__ and set your __callback URL__, if appropriate for your app.  There's more documentation at the site so I won't belabor it here.
 
 # FAQs #
 
 ## What About ruby-fitbit? ##
 
-There is a good looking gem called [ruby-fitbit]{https://github.com/danmayer/ruby-fitbit "ruby-fitbit"} that
+There is a good looking gem called [ruby-fitbit](https://github.com/danmayer/ruby-fitbit "ruby-fitbit") that
 also aims to collect data from the site.  It was created before they released their REST API and uses screen-scraping to gather the data rather than through their API.  I looked into forking it and refactoring
 to use the new API but after looking through the code I felt it would be more of a total rewrite and so decided 
 to create a new gem that I could design from scratch.
 
 ## This Code Looks Awfully Familiar ##
 
-First off, that isn't a question. Second off... I shamelessly stole the 'Client' code from the excellent [twitter_oauth client]{https://github.com/moomerman/twitter_oauth 'twitter_oauth'} and refactored slightly to serve my ends for this particular interface.
+First off, that isn't a question. Second off... I shamelessly stole the 'Client' code from the excellent [twitter_oauth client](https://github.com/moomerman/twitter_oauth 'twitter_oauth') and refactored slightly to serve my ends for this particular interface.
 
-I wouldn't have been able to spin up so fast without the example of twitter_oauth (due to my oauth nubness) to show how to use the [oauth]{http://rubygems.org/gems/oauth 'oauth gem'}
+I wouldn't have been able to spin up so fast without the example of twitter_oauth (due to my oauth nubness) to show how to use the [oauth](http://rubygems.org/gems/oauth 'oauth gem')
 
 #  Contributing to fitbit #
  
