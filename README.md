@@ -6,13 +6,53 @@ exposed data can be gathered.
 
 The fitbit.com API is currently (March 2011) in BETA and is under development to extend its reach.  Since it is early in the lifecycle of the API I expect this gem to go through a number of revisions as we attempt to match the functionality of their platform.
 
-# Changelog #
-
-* 18 March, 2001: First revision. Supports the auth process via oauth, and retrieval of user info and activities.
-
 # Usage #
 
 If you've ever done any oauth client programming then the model will appear familiar.  Your first step, if haven't already, is to visit [https://dev.fitbit.com/](https://dev.fitbit.com/) and register your application to get your __consumer key__ and __consumer secret__ and set your __callback URL__, if appropriate for your app.  There's more documentation at the site so I won't belabor it here.
+
+Below I've included two sample scripts that use Fitbit::Client to retrieve data.  One shows how to do the initial authorization _without_ doing the callback; the other shows how to use saved values from that initial authorization to reconnect with the API and get subsequent information.
+
+	require 'fitbit'
+
+	consumer_key = 'your-app-consumer-key'
+	consumer_secret = 'your-app-consumer-secret'
+
+	client = Fitbit::Client.new({:consumer_key => consumer_key, :consumer_secret => consumer_secret})
+
+	request_token = client.request_token
+	token = request_token.token
+	secret = request_token.secret
+
+	puts "Go to http://www.fitbit.com/oauth/authorize?oauth_token=#{token} and then enter the verifier code below and hit Enter"
+	verifier = gets.chomp
+
+	access_token = client.authorize(token, secret, { :oauth_verifier => verifier })
+
+	puts "Verifier is: "+verifier
+	puts "Token is:    "+access_token.token
+	puts "Secret is:   "+access_token.secret
+
+After running this and successfully connecting with verifier string that is displayed by the Fitbit site, you can reconnect using the script below.  To do so, take the token and secret that were printed out from the script above and paste them in where appropriate.  In this example we are using the client to get the
+
+	require 'fitbit'
+
+	consumer_key = 'your-app-consumer-key'
+	consumer_secret = 'your-app-consumer-secret'
+	token = 'token-received-in-above-script'
+	secret = 'secret-received-in-above-script'
+	user_id = 'your-user-id' # may be similar to '12345N'
+
+	client = Fitbit::Client.new({:consumer_key => consumer_key, :consumer_secret => consumer_secret, :token => token, :secret => secret, :user_id => user_id})
+	access_token = client.reconnect(token, secret)
+ 	p client.user_info
+
+You can use this script to learn about the data structures that are returned from different API calls.  Since this library always retrieves JSON responses and then parses it into Ruby structures, you can interrogate the response data with simple calls to hashes.
+
+# Subscriptions #
+
+The Fitbit API allows for you to set up notification subscription so that when values change (via automatic syncs with the fitbit device) your applications can be notified automatically.  You can set up subscriptions via the [Fitbit dev site](https://dev.fitbit.com/ 'Fitbit Developer Site') or via the API itself.
+
+__Currently, notification management is not supported in this gem__.  We'll be moving to support that once we finish support for reading and writing the existing resources.
 
 # FAQs #
 
@@ -28,6 +68,15 @@ to create a new gem that I could design from scratch.
 First off, that isn't a question. Second off... I shamelessly stole the 'Client' code from the excellent [twitter_oauth client](https://github.com/moomerman/twitter_oauth 'twitter_oauth') and refactored slightly to serve my ends for this particular interface.
 
 I wouldn't have been able to spin up so fast without the example of twitter_oauth (due to my oauth nubness) to show how to use the [oauth](http://rubygems.org/gems/oauth 'oauth gem') gem in the typical auth scenario.
+
+# Changelog #
+
+* 19 March, 2011: 
+** Updated auth client to support first-time auth and reconnections (if you have previously been authorized and received token/secret). 
+** Added 'named' retrieval of activities and foods (recent_, favorite_, frequent_)
+** Added ability to log weight back to the site using the API
+* 18 March, 2001: First revision. Supports the auth process via oauth, and retrieval of user info and activities.
+
 
 #  Contributing to fitbit #
  

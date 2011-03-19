@@ -1,12 +1,19 @@
+require 'fitbit/helpers'
+require 'fitbit/errors'
 require 'fitbit/users'
 require 'fitbit/activities'
 require 'fitbit/units'
+require 'fitbit/foods'
+require 'fitbit/weight'
+require 'fitbit/time_range'
+
 
 module Fitbit
   class Client
     
     attr_accessor :api_version
     attr_accessor :api_unit_system
+    attr_accessor :user_id
     
     def initialize(options = {})
       @consumer_key = options[:consumer_key]
@@ -14,6 +21,7 @@ module Fitbit
       @token = options[:token]
       @secret = options[:secret]
       @proxy = options[:proxy]
+      @user_id = options[:user_id]
       @api_unit_system = Fitbit::ApiUnitSystem.US
       @api_version = "1"
     end
@@ -27,14 +35,11 @@ module Fitbit
       @secret = @access_token.secret
       @access_token
     end
-
-    def show(username)
-      get("/users/show/#{username}.json")
-    end
-
-    # Returns the string "ok" in the requested format with a 200 OK HTTP status code.
-    def test
-      get("/help/test.json")
+    
+    def reconnect(token, secret)
+      @token = token
+      @secret = secret
+      access_token
     end
 
     def request_token(options={})
@@ -55,7 +60,7 @@ module Fitbit
           { :site => 'http://api.fitbit.com', :request_endpoint => @proxy }
         )
       end
-
+      
       def access_token
         @access_token ||= OAuth::AccessToken.new(consumer, @token, @secret)
       end

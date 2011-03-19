@@ -1,13 +1,20 @@
-module Fitbit
+module Fitbit  
   class Client
-    
-    # Should return date as YYYY-MM-DD
-    def format_date(date)
-      date.strftime("%Y-%m-%d")
+        
+    def activities_on_date(date, options = {})
+      get("/user/#{@user_id}/activities/date/#{format_date(date)}.json")
     end
     
-    def activities(user_id, date)
-      get("/user/#{user_id}/activities/date/#{format_date(date)}.json")
+    def frequent_activities(options = {})
+      get("/user/#{@user_id}/activities/frequent.json")
+    end
+    
+    def recent_activities(options = {})
+      get("/user/#{@user_id}/activities/recent.json")
+    end
+    
+    def favorite_activities(options = {})
+      get("/user/#{@user_id}/activities/favorite.json")
     end
     
   end
