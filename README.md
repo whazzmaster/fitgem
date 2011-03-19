@@ -72,9 +72,9 @@ I wouldn't have been able to spin up so fast without the example of twitter_oaut
 # Changelog #
 
 * 19 March, 2011: 
-   ** Updated auth client to support first-time auth and reconnections (if you have previously been authorized and received token/secret). 
-   ** Added 'named' retrieval of activities and foods (recent_, favorite_, frequent_)
-   ** Added ability to log weight back to the site using the API
+   * Updated auth client to support first-time auth and reconnections (if you have previously been authorized and received token/secret). 
+   * Added 'named' retrieval of activities and foods (recent_, favorite_, frequent_)
+   * Added ability to log weight back to the site using the API
 * 18 March, 2001: First revision. Supports the auth process via oauth, and retrieval of user info and activities.
 
 
