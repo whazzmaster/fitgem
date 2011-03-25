@@ -71,6 +71,12 @@ I wouldn't have been able to spin up so fast without the example of twitter_oaut
 
 # Changelog #
 
+* 24 March, 2011: 
+   * Added logging of activities and foods
+   * Added ability to add favorite activities and foods
+   * Added ability to delete logged activities and foods, and remove favorite activities and foods
+   * Refactored data_by_time_range for more testability
+   * Added ability to query devices
 * 19 March, 2011: 
    * Updated auth client to support first-time auth and reconnections (if you have previously been authorized and received token/secret). 
    * Added 'named' retrieval of activities and foods (recent_, favorite_, frequent_)
@@ -79,6 +85,8 @@ I wouldn't have been able to spin up so fast without the example of twitter_oaut
 
 
 #  Contributing to fitbit #
+
+The Fitbit REST API is in BETA right now, and so it will quite likely change over time (though I can't be sure whether it will be additive change or change of the non-backwards-compatible variety).  I aim to keep as up-to-date as I can but if you absolutely need functionality that isn't included here, feel free to fork and implement it, then send me a pull request.
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it

@@ -15,9 +15,7 @@ Gem::Specification.new do |s|
   s.description = %q{A client library to send and retrieve workout/weight data from Fitbit.com}
 
   s.rubyforge_project = "fitbit"
-  
   s.add_dependency "oauth"
-  
   s.add_development_dependency "rspec"
 
   s.files         = `git ls-files`.split("\n")
