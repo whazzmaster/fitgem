@@ -6,7 +6,9 @@ require 'fitbit/units'
 require 'fitbit/foods'
 require 'fitbit/weight'
 require 'fitbit/time_range'
-
+require 'fitbit/devices'
+require 'date'
+require 'uri'
 
 module Fitbit
   class Client

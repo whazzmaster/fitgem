@@ -32,7 +32,12 @@ module Fitbit
     # /body/weight
     # /body/bmi
     # /body/fat
-    def data_by_time_range(resource_path, options = {})
+    def data_by_time_range(resource_path, options)
+      range_str = construct_date_range_fragment(options)
+      get("/user/#{@user_id}#{resource_path}/#{range_str}.json")
+    end
+    
+    def construct_date_range_fragment(options)
       range_str = "date/"
       if options[:base_date] && options[:period]
         range_str += "#{options[:base_date]}/#{options[:period]}"
@@ -41,7 +46,7 @@ module Fitbit
       else
         raise Fitbit::InvalidTimeRange, "Must supply either base_date and period OR base_date and end_date"
       end
-      get("#{resource_path}/#{range_str}.json")
+      range_str
     end
     
   end

@@ -3,10 +3,12 @@ module Fitbit
    
     # Should return date as YYYY-MM-DD
     def format_date(date)
-      if Date === date || Time === date
-        date.strftime("%Y-%m-%d")
+      if date.is_a? String
+        return date
+      elsif Date === date || Time === date || DateTime === date
+        return date.strftime("%Y-%m-%d")
       else
-        raise Fitbit::InvalidArgumentError, "Date used must be a date/time object; current argument is a #{date.class}"
+        raise Fitbit::InvalidArgumentError, "Date used must be a date/time object or a string in the format YYYY=MM-DD; current argument is a #{date.class}"
       end
     end
      

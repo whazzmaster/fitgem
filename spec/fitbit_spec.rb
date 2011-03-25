@@ -28,9 +28,42 @@ describe Fitbit do
     end
   end
   
-  describe "error conditions" do
-    it 'should raise an error when passed an invalid date format' do
-      lambda { @client.activities_on_date('fake_user', '2011-03-18') }.should raise_error(Fitbit::InvalidArgumentError)
+  describe "data retrieval by time range" do
+    
+    it 'should format the correct URI fragment based on a base date and end date' do
+      frag = @client.construct_date_range_fragment({:base_date => '2011-03-07', :end_date => '2011-03-14'})
+      frag.should == 'date/2011-03-07/2011-03-14'
+    end
+    
+    it 'should format the correct URI fragment based on a base date and period' do
+      frag = @client.construct_date_range_fragment({:base_date => '2011-03-07', :period => '7d'})
+      frag.should == 'date/2011-03-07/7d'
+    end
+    
+    it 'should raise an error unless there is a base date AND either a period or an end date' do
+      lambda {
+        @client.construct_date_range_fragment({:base_date => '2011-03-07'})
+      }.should raise_error(Fitbit::InvalidTimeRange)
+      
+      lambda {
+        @client.construct_date_range_fragment({:period => '1y'})
+      }.should raise_error(Fitbit::InvalidTimeRange)
+      
+      lambda {
+        @client.construct_date_range_fragment({:end_date => '2011-03-07', :period => '7d'})
+      }.should raise_error(Fitbit::InvalidTimeRange)
+    end
+    
+  end
+  
+  describe "format_date" do
+    it 'should accept DateTime objects' do
+      date = DateTime.strptime('2011-03-19','%Y-%m-%d')
+      @client.format_date(date).should == '2011-03-19'
+    end
+    
+    it 'should accept strings in YYYY-MM-DD format' do
+      @client.format_date('2011-03-19').should == '2011-03-19'
     end
   end
 end
