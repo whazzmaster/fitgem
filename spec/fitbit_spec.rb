@@ -26,6 +26,10 @@ describe Fitbit do
       @client.api_unit_system = Fitbit::ApiUnitSystem.METRIC
       @client.api_unit_system.should == Fitbit::ApiUnitSystem.METRIC    
     end
+    
+    it 'should default to a user id of \'-\', the currently-logged in user' do
+      @client.user_id.should == '-'
+    end
   end
   
   describe "data retrieval by time range" do

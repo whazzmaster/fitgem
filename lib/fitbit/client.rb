@@ -7,6 +7,7 @@ require 'fitbit/foods'
 require 'fitbit/weight'
 require 'fitbit/time_range'
 require 'fitbit/devices'
+require 'fitbit/notifications'
 require 'date'
 require 'uri'
 
@@ -23,7 +24,7 @@ module Fitbit
       @token = options[:token]
       @secret = options[:secret]
       @proxy = options[:proxy]
-      @user_id = options[:user_id]
+      @user_id = options[:user_id] || "-"
       @api_unit_system = Fitbit::ApiUnitSystem.US
       @api_version = "1"
     end
