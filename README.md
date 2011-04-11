@@ -50,7 +50,7 @@ You can use this script to learn about the data structures that are returned fro
 
 ## Usage in a Rails Application ##
 
-We've started to develop an example app using the this fitbit client.  See [https://github.com/whazzmaster/fitbit-client](https://github.com/whazzmaster/fitbit-client fitbit-client rails app) for more information.
+We've started to develop an example app using the this fitbit client.  See [https://github.com/whazzmaster/fitbit-client](https://github.com/whazzmaster/fitbit-client) for more information.
 
 # Subscriptions #
 
