@@ -48,11 +48,17 @@ After running this and successfully connecting with verifier string that is disp
 
 You can use this script to learn about the data structures that are returned from different API calls.  Since this library always retrieves JSON responses and then parses it into Ruby structures, you can interrogate the response data with simple calls to hashes.
 
+## Usage in a Rails Application ##
+
+We've started to develop an example app using the this fitbit client.  See [https://github.com/whazzmaster/fitbit-client](https://github.com/whazzmaster/fitbit-client fitbit-client rails app) for more information.
+
 # Subscriptions #
 
-The Fitbit API allows for you to set up notification subscription so that when values change (via automatic syncs with the fitbit device) your applications can be notified automatically.  You can set up subscriptions via the [Fitbit dev site](https://dev.fitbit.com/ 'Fitbit Developer Site') or via the API itself.
+The Fitbit API allows for you to set up notification subscription so that when values change (via automatic syncs with the fitbit device) your applications can be notified automatically.  You can set up a default subscription callback URL via the [Fitbit dev site](https://dev.fitbit.com/ 'Fitbit Developer Site') and then use the Subscriptions API to add or remove subscriptions for individual users.
 
-__Currently, notification management is not supported in this gem__.  We'll be moving to support that once we finish support for reading and writing the existing resources.
+__Currently, notification management is experimental in this gem__.  We've built up code to add and remove specific types of subscriptions (foods, activities, sleep, body) but there seems to be some server-side issues with creating general, all-purpose subscriptions.
+
+The docs are very fuzzy on subscription support at the moment; we definitely plan on extending this support once the backend has matured (or the online docs have improved).
 
 # FAQs #
 
@@ -71,6 +77,9 @@ I wouldn't have been able to spin up so fast without the example of twitter_oaut
 
 # Changelog #
 
+* 11 April, 2011:
+   * Fixed an issue where blank user id's are used and an error is thrown.
+   * Added support for creating/removing subscriptions (this support is experimental for now, more tests coming)
 * 24 March, 2011: 
    * Added logging of activities and foods
    * Added ability to add favorite activities and foods

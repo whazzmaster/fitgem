@@ -1,8 +1,37 @@
 module Fitbit
   class Client
     
-    def create_general_subscription(options={})
-      url = "/user/#{@user_id}/apiSubscriptions"
+    def create_subscription(options={})
+      unless options[:type] && [:sleep,:body,:activities,:foods].include?(options[:type])
+        raise Error, 'Must include options[:type] (values are :activities, :foods, :sleep, and :body)'
+      end
+      base_url = "/user/#{@user_id}/#{options[:type].to_s}/apiSubscriptions"
+      post_subscription(base_url, options)
+    end
+    
+    def remove_subscription(options={})
+      unless options[:type] && [:sleep,:body,:activities,:foods].include?(options[:type])
+        raise Error, 'Must include options[:type] (values are :activities, :foods, :sleep, and :body)'
+      end
+      unless options[:subscription_id]
+        raise Error, "Must include options[:subscription_id] to delete a subscription"
+      end
+      base_url = "/user/#{@user_id}/#{options[:type].to_s}/apiSubscriptions"
+      url = finalize_subscription_url(base_url, options)
+      headers = {}
+      headers['X-Fitbit-Subscriber-Id'] = options[:subscriber_id] if options[:subscriber_id]
+      begin
+        delete(url, headers)
+      rescue TypeError
+        # Deleting a subscription returns a nil response, which causes a TypeError
+        # when the oauth library tries to parse it.
+      end
+    end
+    
+    protected
+    
+    def finalize_subscription_url(base_url, options={})
+      url = base_url
       if options[:subscription_id]
         url += "/#{options[:subscription_id]}"
       end
@@ -11,29 +40,12 @@ module Fitbit
       else
         url += ".json"
       end
-      # puts "Url: #{url}"
-      # resp = post(url)
-      # p resp
+      url
     end
     
-    def create_food_subscription
-      
-    end
-    
-    def create_activity_subscription
-      
-    end
-    
-    def create_sleep_subscription
-      
-    end
-    
-    def create_body_subscription
-      
-    end
-    
-    def remove_subscription
-      
+    def post_subscription(base_url, options)
+      url = finalize_subscription_url(base_url, options)
+      post(url, options)
     end
     
   end

@@ -81,6 +81,8 @@ module Fitbit
       end
 
       def delete(path, headers={})
+        p path
+        p headers
         headers.merge!("User-Agent" => "fitbit gem v#{Fitbit::VERSION}", "Accept-Language" => @api_unit_system)
         oauth_response = access_token.delete("/#{@api_version}#{path}", headers)
         JSON.parse(oauth_response.body)
