@@ -1,5 +1,1 @@
-if [[ -s "/usr/local/rvm/environments/ruby-1.9.2-p0@fitbit" ]] ; then
-  . "/usr/local/rvm/environments/ruby-1.9.2-p0@fitbit"
-else
-  rvm --create use "ruby-1.9.2-p0@fitbit"
-fi
+rvm ruby-1.9.2-p0@fitbit
