@@ -108,4 +108,3 @@ The Fitbit REST API is in BETA right now, and so it will quite likely change ove
 ### Copyright ###
 
 Copyright (c) 2011 Zachery Moneypenny. See LICENSE.txt for further details.
-
