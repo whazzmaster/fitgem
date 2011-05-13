@@ -1,4 +1,4 @@
-# Fitbit #
+# Fitgem #
 
 Provides access to fitbit.com data through their OAuth/REST API.  Without user authentication, any data
 that the a fitbit.com user has denoted as 'public' can be gathered.  If a user logs in via OAuth then all
@@ -10,14 +10,14 @@ The fitbit.com API is currently (March 2011) in BETA and is under development to
 
 If you've ever done any oauth client programming then the model will appear familiar.  Your first step, if haven't already, is to visit [https://dev.fitbit.com/](https://dev.fitbit.com/) and register your application to get your __consumer key__ and __consumer secret__ and set your __callback URL__, if appropriate for your app.  There's more documentation at the site so I won't belabor it here.
 
-Below I've included two sample scripts that use Fitbit::Client to retrieve data.  One shows how to do the initial authorization _without_ doing the callback; the other shows how to use saved values from that initial authorization to reconnect with the API and get subsequent information.
+Below I've included two sample scripts that use Fitgem::Client to retrieve data.  One shows how to do the initial authorization _without_ doing the callback; the other shows how to use saved values from that initial authorization to reconnect with the API and get subsequent information.
 
-	require 'fitbit'
+	require 'fitgem'
 
 	consumer_key = 'your-app-consumer-key'
 	consumer_secret = 'your-app-consumer-secret'
 
-	client = Fitbit::Client.new({:consumer_key => consumer_key, :consumer_secret => consumer_secret})
+	client = Fitgem::Client.new({:consumer_key => consumer_key, :consumer_secret => consumer_secret})
 
 	request_token = client.request_token
 	token = request_token.token
@@ -32,9 +32,9 @@ Below I've included two sample scripts that use Fitbit::Client to retrieve data.
 	puts "Token is:    "+access_token.token
 	puts "Secret is:   "+access_token.secret
 
-After running this and successfully connecting with verifier string that is displayed by the Fitbit site, you can reconnect using the script below.  To do so, take the token and secret that were printed out from the script above and paste them in where appropriate.  In this example we are using the client to get the
+After running this and successfully connecting with verifier string that is displayed by the Fitgem site, you can reconnect using the script below.  To do so, take the token and secret that were printed out from the script above and paste them in where appropriate.  In this example we are using the client to get the
 
-	require 'fitbit'
+	require 'fitgem'
 
 	consumer_key = 'your-app-consumer-key'
 	consumer_secret = 'your-app-consumer-secret'
@@ -42,7 +42,7 @@ After running this and successfully connecting with verifier string that is disp
 	secret = 'secret-received-in-above-script'
 	user_id = 'your-user-id' # may be similar to '12345N'
 
-	client = Fitbit::Client.new({:consumer_key => consumer_key, :consumer_secret => consumer_secret, :token => token, :secret => secret, :user_id => user_id})
+	client = Fitgem::Client.new({:consumer_key => consumer_key, :consumer_secret => consumer_secret, :token => token, :secret => secret, :user_id => user_id})
 	access_token = client.reconnect(token, secret)
  	p client.user_info
 
@@ -50,7 +50,7 @@ You can use this script to learn about the data structures that are returned fro
 
 ## Usage in a Rails Application ##
 
-We've started to develop an example app using the this fitbit client.  See [https://github.com/whazzmaster/fitbit-client](https://github.com/whazzmaster/fitbit-client) for more information.
+We've started to develop an example app using the this fitgem client.  See [https://github.com/whazzmaster/fitgem-client](https://github.com/whazzmaster/fitgem-client) for more information.
 
 # Subscriptions #
 
@@ -93,7 +93,7 @@ I wouldn't have been able to spin up so fast without the example of twitter_oaut
 * 18 March, 2001: First revision. Supports the auth process via oauth, and retrieval of user info and activities.
 
 
-#  Contributing to fitbit #
+#  Contributing to fitgem #
 
 The Fitbit REST API is in BETA right now, and so it will quite likely change over time (though I can't be sure whether it will be additive change or change of the non-backwards-compatible variety).  I aim to keep as up-to-date as I can but if you absolutely need functionality that isn't included here, feel free to fork and implement it, then send me a pull request.
  

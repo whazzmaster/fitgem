@@ -1,4 +1,4 @@
-module Fitbit
+module Fitgem
   class Client
     
     def user_info(options = {})    

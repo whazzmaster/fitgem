@@ -1,4 +1,4 @@
-module Fitbit
+module Fitgem
   class Client
    
     # Should return date as YYYY-MM-DD
@@ -8,7 +8,7 @@ module Fitbit
       elsif Date === date || Time === date || DateTime === date
         return date.strftime("%Y-%m-%d")
       else
-        raise Fitbit::InvalidArgumentError, "Date used must be a date/time object or a string in the format YYYY=MM-DD; current argument is a #{date.class}"
+        raise Fitgem::InvalidArgumentError, "Date used must be a date/time object or a string in the format YYYY=MM-DD; current argument is a #{date.class}"
       end
     end
      

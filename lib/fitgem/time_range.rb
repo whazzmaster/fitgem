@@ -1,4 +1,4 @@
-module Fitbit
+module Fitgem
   class Client
     
     # Gets historical resource data in the time range specified by 
@@ -44,7 +44,7 @@ module Fitbit
       elsif options[:base_date] && options[:end_date]
         range_str += "#{options[:base_date]}/#{options[:end_date]}"
       else
-        raise Fitbit::InvalidTimeRange, "Must supply either base_date and period OR base_date and end_date"
+        raise Fitgem::InvalidTimeRange, "Must supply either base_date and period OR base_date and end_date"
       end
       range_str
     end

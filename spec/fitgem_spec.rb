@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Fitbit do
+describe Fitgem do
   
   before do
-    @client = Fitbit::Client.new
+    @client = Fitgem::Client.new
   end
   
   describe "global settings" do
@@ -17,14 +17,14 @@ describe Fitbit do
     end
   
     it 'should default to the US unit system' do
-      @client.api_unit_system.should == Fitbit::ApiUnitSystem.US
+      @client.api_unit_system.should == Fitgem::ApiUnitSystem.US
     end
   
     it 'should allow the unit system to be set to other types' do
-      @client.api_unit_system = Fitbit::ApiUnitSystem.UK
-      @client.api_unit_system.should == Fitbit::ApiUnitSystem.UK
-      @client.api_unit_system = Fitbit::ApiUnitSystem.METRIC
-      @client.api_unit_system.should == Fitbit::ApiUnitSystem.METRIC    
+      @client.api_unit_system = Fitgem::ApiUnitSystem.UK
+      @client.api_unit_system.should == Fitgem::ApiUnitSystem.UK
+      @client.api_unit_system = Fitgem::ApiUnitSystem.METRIC
+      @client.api_unit_system.should == Fitgem::ApiUnitSystem.METRIC    
     end
     
     it 'should default to a user id of \'-\', the currently-logged in user' do
@@ -47,15 +47,15 @@ describe Fitbit do
     it 'should raise an error unless there is a base date AND either a period or an end date' do
       lambda {
         @client.construct_date_range_fragment({:base_date => '2011-03-07'})
-      }.should raise_error(Fitbit::InvalidTimeRange)
+      }.should raise_error(Fitgem::InvalidTimeRange)
       
       lambda {
         @client.construct_date_range_fragment({:period => '1y'})
-      }.should raise_error(Fitbit::InvalidTimeRange)
+      }.should raise_error(Fitgem::InvalidTimeRange)
       
       lambda {
         @client.construct_date_range_fragment({:end_date => '2011-03-07', :period => '7d'})
-      }.should raise_error(Fitbit::InvalidTimeRange)
+      }.should raise_error(Fitgem::InvalidTimeRange)
     end
     
   end

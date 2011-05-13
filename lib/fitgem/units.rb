@@ -1,4 +1,4 @@
-module Fitbit
+module Fitgem
   class ApiUnitSystem
     def self.US
       "en_US"

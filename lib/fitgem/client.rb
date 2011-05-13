@@ -1,17 +1,17 @@
-require 'fitbit/helpers'
-require 'fitbit/errors'
-require 'fitbit/users'
-require 'fitbit/activities'
-require 'fitbit/units'
-require 'fitbit/foods'
-require 'fitbit/weight'
-require 'fitbit/time_range'
-require 'fitbit/devices'
-require 'fitbit/notifications'
+require 'fitgem/helpers'
+require 'fitgem/errors'
+require 'fitgem/users'
+require 'fitgem/activities'
+require 'fitgem/units'
+require 'fitgem/foods'
+require 'fitgem/weight'
+require 'fitgem/time_range'
+require 'fitgem/devices'
+require 'fitgem/notifications'
 require 'date'
 require 'uri'
 
-module Fitbit
+module Fitgem
   class Client
     
     attr_accessor :api_version
@@ -25,7 +25,7 @@ module Fitbit
       @secret = options[:secret]
       @proxy = options[:proxy]
       @user_id = options[:user_id] || "-"
-      @api_unit_system = Fitbit::ApiUnitSystem.US
+      @api_unit_system = Fitgem::ApiUnitSystem.US
       @api_version = "1"
     end
 
@@ -69,13 +69,13 @@ module Fitbit
       end
 
       def get(path, headers={})
-        headers.merge!("User-Agent" => "fitbit gem v#{Fitbit::VERSION}", "Accept-Language" => @api_unit_system)
+        headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
         oauth_response = access_token.get("/#{@api_version}#{path}", headers)
         JSON.parse(oauth_response.body)
       end
 
       def post(path, body='', headers={})
-        headers.merge!("User-Agent" => "fitbit gem v#{Fitbit::VERSION}", "Accept-Language" => @api_unit_system)
+        headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
         oauth_response = access_token.post("/#{@api_version}#{path}", body, headers)
         JSON.parse(oauth_response.body)
       end
@@ -83,7 +83,7 @@ module Fitbit
       def delete(path, headers={})
         p path
         p headers
-        headers.merge!("User-Agent" => "fitbit gem v#{Fitbit::VERSION}", "Accept-Language" => @api_unit_system)
+        headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
         oauth_response = access_token.delete("/#{@api_version}#{path}", headers)
         JSON.parse(oauth_response.body)
       end

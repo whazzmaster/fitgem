@@ -1,8 +1,8 @@
 require 'json'
 require 'oauth'
 
-require 'fitbit/client'
+require 'fitgem/client'
 
-module Fitbit  
+module Fitgem
   VERSION = "0.2.0"
 end

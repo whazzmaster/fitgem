@@ -2,19 +2,19 @@
 $:.push File.expand_path("../lib", __FILE__)
 $:.push File.join(File.dirname(__FILE__), '.', 'lib')
 
-require 'fitbit'
+require 'fitgem'
 
 Gem::Specification.new do |s|
-  s.name        = "fitbit"
-  s.version     = Fitbit::VERSION
+  s.name        = "fitgem"
+  s.version     = Fitgem::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Zachery Moneypenny"]
-  s.email       = ["fitbit-gem@whazzmaster.com"]
-  s.homepage    = "http://github.com/whazzmaster/fitbit"
-  s.summary     = %q{OAuth client library to the data on Fitbit.com}
-  s.description = %q{A client library to send and retrieve workout/weight data from Fitbit.com}
+  s.email       = ["fitgem@whazzmaster.com"]
+  s.homepage    = "http://github.com/whazzmaster/fitgem"
+  s.summary     = %q{OAuth client library to the data on fitbit.com}
+  s.description = %q{A client library to send and retrieve workout/weight data from fitbit.com}
 
-  s.rubyforge_project = "fitbit"
+  s.rubyforge_project = "fitgem"
   s.add_dependency "oauth"
   s.add_development_dependency "rspec"
 

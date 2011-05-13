@@ -1,4 +1,4 @@
-module Fitbit
+module Fitgem
   class Client
     
     def create_subscription(options={})
@@ -19,7 +19,7 @@ module Fitbit
       base_url = "/user/#{@user_id}/#{options[:type].to_s}/apiSubscriptions"
       url = finalize_subscription_url(base_url, options)
       headers = {}
-      headers['X-Fitbit-Subscriber-Id'] = options[:subscriber_id] if options[:subscriber_id]
+      headers['X-Fitgem-Subscriber-Id'] = options[:subscriber_id] if options[:subscriber_id]
       begin
         delete(url, headers)
       rescue TypeError

@@ -1,4 +1,4 @@
-module Fitbit
+module Fitgem
   class InvalidArgumentError < ArgumentError
   end
   
