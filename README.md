@@ -1,8 +1,6 @@
 # Fitgem #
 
-Provides access to fitbit.com data through their OAuth/REST API.  Without user authentication, any data
-that the a fitbit.com user has denoted as 'public' can be gathered.  If a user logs in via OAuth then all
-exposed data can be gathered.
+Provides access to fitbit.com data through their OAuth/REST API.  Without user authentication, any data that the a fitbit.com user has denoted as 'public' can be gathered.  If a user logs in via OAuth then all exposed data can be gathered.
 
 The fitbit.com API is currently (March 2011) in BETA and is under development to extend its reach.  Since it is early in the lifecycle of the API I expect this gem to go through a number of revisions as we attempt to match the functionality of their platform.
 
@@ -50,7 +48,7 @@ You can use this script to learn about the data structures that are returned fro
 
 ## Usage in a Rails Application ##
 
-We've started to develop an example app using the this fitgem client.  See [https://github.com/whazzmaster/fitgem-client](https://github.com/whazzmaster/fitgem-client) for more information.
+We've started to develop an example app using the fitgem client.  See [https://github.com/whazzmaster/fitgem-client](https://github.com/whazzmaster/fitgem-client) for more information.
 
 # Subscriptions #
 
@@ -69,31 +67,35 @@ also aims to collect data from the site.  It was created before they released th
 to use the new API but after looking through the code I felt it would be more of a total rewrite and so decided 
 to create a new gem that I could design from scratch.
 
-## This Code Looks Awfully Familiar ##
+## Why the Name Change? ##
 
-First off, that isn't a question. Second off... I shamelessly stole the 'Client' code from the excellent [twitter_oauth client](https://github.com/moomerman/twitter_oauth 'twitter_oauth') and refactored slightly to serve my ends for this particular interface.
+It turns out that Fitbit.com does not want people to create libraries or applications that incorporate the name 'fitbit'.  So, on May 12th I changed the name of the project/gem from 'fitbit' to 'fitgem'.
 
-I wouldn't have been able to spin up so fast without the example of twitter_oauth (due to my oauth nubness) to show how to use the [oauth](http://rubygems.org/gems/oauth 'oauth gem') gem in the typical auth scenario.
 
 # Changelog #
 
+* 12 May, 2011:
+	* Changed name and all references of this project from 'fitbit' to 'fitgem'
 * 11 April, 2011:
-   * Fixed an issue where blank user id's are used and an error is thrown.
-   * Added support for creating/removing subscriptions (this support is experimental for now, more tests coming)
+  * Fixed an issue where blank user id's are used and an error is thrown.
+  * Added support for creating/removing subscriptions (this support is experimental for now, more tests coming)
 * 24 March, 2011: 
-   * Added logging of activities and foods
-   * Added ability to add favorite activities and foods
-   * Added ability to delete logged activities and foods, and remove favorite activities and foods
-   * Refactored data_by_time_range for more testability
-   * Added ability to query devices
+  * Added logging of activities and foods
+  * Added ability to add favorite activities and foods
+  * Added ability to delete logged activities and foods, and remove favorite activities and foods
+  * Refactored data_by_time_range for more testability
+  * Added ability to query devices
 * 19 March, 2011: 
-   * Updated auth client to support first-time auth and reconnections (if you have previously been authorized and received token/secret). 
-   * Added 'named' retrieval of activities and foods (recent_, favorite_, frequent_)
-   * Added ability to log weight back to the site using the API
+  * Updated auth client to support first-time auth and reconnections (if you have previously been authorized and received token/secret). 
+  * Added 'named' retrieval of activities and foods (recent_, favorite_, frequent_)
+  * Added ability to log weight back to the site using the API
 * 18 March, 2001: First revision. Supports the auth process via oauth, and retrieval of user info and activities.
 
+# Notice #
 
-#  Contributing to fitgem #
+To be clear: __I am not employed by fitbit.com__.  I created this library to assist other ruby developers in creating interesting applications on top of fitbit.com's data store and device data stream.
+
+# Contributing to fitgem #
 
 The Fitbit REST API is in BETA right now, and so it will quite likely change over time (though I can't be sure whether it will be additive change or change of the non-backwards-compatible variety).  I aim to keep as up-to-date as I can but if you absolutely need functionality that isn't included here, feel free to fork and implement it, then send me a pull request.
  
