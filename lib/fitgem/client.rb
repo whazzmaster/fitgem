@@ -4,7 +4,7 @@ require 'fitgem/users'
 require 'fitgem/activities'
 require 'fitgem/units'
 require 'fitgem/foods'
-require 'fitgem/weight'
+require 'fitgem/body_measurements'
 require 'fitgem/time_range'
 require 'fitgem/devices'
 require 'fitgem/notifications'
@@ -13,11 +13,11 @@ require 'uri'
 
 module Fitgem
   class Client
-    
+
     attr_accessor :api_version
     attr_accessor :api_unit_system
     attr_accessor :user_id
-    
+
     def initialize(options = {})
       @consumer_key = options[:consumer_key]
       @consumer_secret = options[:consumer_secret]
@@ -38,7 +38,7 @@ module Fitgem
       @secret = @access_token.secret
       @access_token
     end
-    
+
     def reconnect(token, secret)
       @token = token
       @secret = secret
@@ -63,7 +63,7 @@ module Fitgem
           { :site => 'http://api.fitbit.com', :request_endpoint => @proxy }
         )
       end
-      
+
       def access_token
         @access_token ||= OAuth::AccessToken.new(consumer, @token, @secret)
       end
