@@ -71,7 +71,6 @@ to create a new gem that I could design from scratch.
 
 It turns out that Fitbit.com does not want people to create libraries or applications that incorporate the name 'fitbit'.  So, on May 12th I changed the name of the project/gem from 'fitbit' to 'fitgem'.
 
-
 # Changelog #
 
 * 12 July, 2011:
