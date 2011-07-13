@@ -64,7 +64,7 @@ The docs are very fuzzy on subscription support at the moment; we definitely pla
 
 There is a good looking gem called [ruby-fitbit](https://github.com/danmayer/ruby-fitbit "ruby-fitbit") that
 also aims to collect data from the site.  It was created before they released their REST API and uses screen-scraping to gather the data rather than through their API.  I looked into forking it and refactoring
-to use the new API but after looking through the code I felt it would be more of a total rewrite and so decided 
+to use the new API but after looking through the code I felt it would be more of a total rewrite and so decided
 to create a new gem that I could design from scratch.
 
 ## Why the Name Change? ##
@@ -74,19 +74,24 @@ It turns out that Fitbit.com does not want people to create libraries or applica
 
 # Changelog #
 
+* 12 July, 2011:
+  * Added friends support (get friends, friend leaderboard, create invites, accept/reject invites)
+  * Added water support (get water data per date)
+  * Added sleep support (get sleep data per date)
+  * Added ability to update user profile information
 * 12 May, 2011:
 	* Changed name and all references of this project from 'fitbit' to 'fitgem'
 * 11 April, 2011:
   * Fixed an issue where blank user id's are used and an error is thrown.
   * Added support for creating/removing subscriptions (this support is experimental for now, more tests coming)
-* 24 March, 2011: 
+* 24 March, 2011:
   * Added logging of activities and foods
   * Added ability to add favorite activities and foods
   * Added ability to delete logged activities and foods, and remove favorite activities and foods
   * Refactored data_by_time_range for more testability
   * Added ability to query devices
-* 19 March, 2011: 
-  * Updated auth client to support first-time auth and reconnections (if you have previously been authorized and received token/secret). 
+* 19 March, 2011:
+  * Updated auth client to support first-time auth and reconnections (if you have previously been authorized and received token/secret).
   * Added 'named' retrieval of activities and foods (recent_, favorite_, frequent_)
   * Added ability to log weight back to the site using the API
 * 18 March, 2001: First revision. Supports the auth process via oauth, and retrieval of user info and activities.
@@ -98,7 +103,7 @@ To be clear: __I am not employed by fitbit.com__.  I created this library to ass
 # Contributing to fitgem #
 
 The Fitbit REST API is in BETA right now, and so it will quite likely change over time (though I can't be sure whether it will be additive change or change of the non-backwards-compatible variety).  I aim to keep as up-to-date as I can but if you absolutely need functionality that isn't included here, feel free to fork and implement it, then send me a pull request.
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
