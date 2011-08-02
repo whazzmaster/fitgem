@@ -2,11 +2,9 @@
 $:.push File.expand_path("../lib", __FILE__)
 $:.push File.join(File.dirname(__FILE__), '.', 'lib')
 
-require 'fitgem'
-
 Gem::Specification.new do |s|
   s.name        = "fitgem"
-  s.version     = Fitgem::VERSION
+  s.version     = "0.3.0"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Zachery Moneypenny"]
   s.email       = ["fitgem@whazzmaster.com"]
