@@ -4,7 +4,7 @@ $:.push File.join(File.dirname(__FILE__), '.', 'lib')
 
 Gem::Specification.new do |s|
   s.name        = "fitgem"
-  s.version     = "0.3.1"
+  s.version     = "0.3.2"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Zachery Moneypenny"]
   s.email       = ["fitgem@whazzmaster.com"]
