@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.files         = [
     '.gitignore',
     '.rvmrc',
-    'Gemfile'
+    'Gemfile',
     'Guardfile',
     'LICENSE',
     'README.md',
