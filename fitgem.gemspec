@@ -2,7 +2,7 @@
 $:.push File.expand_path("../lib", __FILE__)
 $:.push File.join(File.dirname(__FILE__), '.', 'lib')
 
-require 'lib/fitgem/version'
+require 'fitgem/version'
 
 Gem::Specification.new do |s|
   s.name        = "fitgem"
