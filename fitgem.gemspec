@@ -2,9 +2,11 @@
 $:.push File.expand_path("../lib", __FILE__)
 $:.push File.join(File.dirname(__FILE__), '.', 'lib')
 
+require 'lib/fitgem/version'
+
 Gem::Specification.new do |s|
   s.name        = "fitgem"
-  s.version     = "0.3.2"
+  s.version     = Fitgem::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Zachery Moneypenny"]
   s.email       = ["fitgem@whazzmaster.com"]
@@ -20,8 +22,36 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rb-fsevent"
   s.add_development_dependency "growl"
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.files         = [
+    '.gitignore',
+    '.rvmrc',
+    'Gemfile'
+    'Guardfile',
+    'LICENSE',
+    'README.md',
+    'Rakefile',
+    'fitgem.gemspec',
+    'lib/fitgem.rb',
+    'lib/fitgem/activities.rb',
+    'lib/fitgem/body_measurements.rb',
+    'lib/fitgem/client.rb',
+    'lib/fitgem/devices.rb',
+    'lib/fitgem/errors.rb',
+    'lib/fitgem/foods.rb',
+    'lib/fitgem/friends.rb',
+    'lib/fitgem/helpers.rb',
+    'lib/fitgem/notifications.rb',
+    'lib/fitgem/sleep.rb',
+    'lib/fitgem/time_range.rb',
+    'lib/fitgem/units.rb',
+    'lib/fitgem/users.rb',
+    'lib/fitgem/water.rb',
+    'spec/fitgem_spec.rb',
+    'spec/spec_helper.rb'
+  ]
+  s.test_files   = [
+    'spec/fitgem_spec.rb',
+    'spec/spec_helper.rb'
+  ]
   s.require_paths = ["lib"]
 end
