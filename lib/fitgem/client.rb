@@ -75,21 +75,25 @@ module Fitgem
         headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
         uri = "/#{@api_version}#{path}"
         oauth_response = access_token.get(uri, headers)
-        JSON.parse(oauth_response.body)
+        process_response oauth_response
       end
 
       def post(path, body='', headers={})
         headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
         uri = "/#{@api_version}#{path}"
         oauth_response = access_token.post(uri, body, headers)
-        JSON.parse(oauth_response.body)
+        process_response oauth_response
       end
 
       def delete(path, headers={})
         headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
         uri = "/#{@api_version}#{path}"
         oauth_response = access_token.delete(uri, headers)
-        JSON.parse(oauth_response.body)
+        process_response oauth_response
+      end
+
+      def process_response(resp)
+        resp.nil? || resp.body.nil? ? {} : JSON.parse(resp.body)
       end
   end
 end

@@ -28,11 +28,7 @@ module Fitgem
     # ==========================================
 
     def delete_water_log(log_id)
-      begin
-        delete("/user/-/foods/log/water/#{log_id}.json")
-      rescue TypeError
-        # OAuth library responds badly to nil responses by fitbit's delete methods
-      end
+      delete("/user/-/foods/log/water/#{log_id}.json")
     end
   end
 end

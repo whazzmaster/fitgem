@@ -20,12 +20,7 @@ module Fitgem
       url = finalize_subscription_url(base_url, options)
       headers = {}
       headers['X-Fitgem-Subscriber-Id'] = options[:subscriber_id] if options[:subscriber_id]
-      begin
-        delete(url, headers)
-      rescue TypeError
-        # Deleting a subscription returns a nil response, which causes a TypeError
-        # when the oauth library tries to parse it.
-      end
+      delete(url, headers)
     end
     
     protected
