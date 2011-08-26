@@ -1,3 +1,4 @@
+require 'fitgem/version'
 require 'fitgem/helpers'
 require 'fitgem/errors'
 require 'fitgem/users'
