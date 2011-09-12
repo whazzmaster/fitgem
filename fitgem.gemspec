@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
     'Rakefile',
     'fitgem.gemspec',
     'lib/fitgem.rb',
+    'lib/fitgem/version.rb',
     'lib/fitgem/activities.rb',
     'lib/fitgem/body_measurements.rb',
     'lib/fitgem/client.rb',
