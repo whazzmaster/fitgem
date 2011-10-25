@@ -25,8 +25,19 @@ module Fitgem
       get("/foods/units.json")
     end
 
+    # ==========================================
+    #           Food Query Methods
+    # ==========================================
+
+    # Search the foods database
     def find_food(query_string)
       get("/foods/search.json?query=#{URI.escape(query_string)}")
+    end
+
+    # Using the foodId field from the results of find_food(), query
+    # the details of a specific food
+    def food_info(food_id)
+      get("/foods/#{food_id}.json")
     end
 
     # ==========================================
