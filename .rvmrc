@@ -1,1 +1,1 @@
-rvm 1.9.2@fitbit --create
+rvm ruby-1.9.3-p0@fitbit --create
