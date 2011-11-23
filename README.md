@@ -71,30 +71,6 @@ to create a new gem that I could design from scratch.
 
 It turns out that Fitbit.com does not want people to create libraries or applications that incorporate the name 'fitbit'.  So, on May 12th I changed the name of the project/gem from 'fitbit' to 'fitgem'.
 
-# Changelog #
-
-* 12 July, 2011:
-  * Added friends support (get friends, friend leaderboard, create invites, accept/reject invites)
-  * Added water support (get water data per date)
-  * Added sleep support (get sleep data per date)
-  * Added ability to update user profile information
-* 12 May, 2011:
-	* Changed name and all references of this project from 'fitbit' to 'fitgem'
-* 11 April, 2011:
-  * Fixed an issue where blank user id's are used and an error is thrown.
-  * Added support for creating/removing subscriptions (this support is experimental for now, more tests coming)
-* 24 March, 2011:
-  * Added logging of activities and foods
-  * Added ability to add favorite activities and foods
-  * Added ability to delete logged activities and foods, and remove favorite activities and foods
-  * Refactored data_by_time_range for more testability
-  * Added ability to query devices
-* 19 March, 2011:
-  * Updated auth client to support first-time auth and reconnections (if you have previously been authorized and received token/secret).
-  * Added 'named' retrieval of activities and foods (recent_, favorite_, frequent_)
-  * Added ability to log weight back to the site using the API
-* 18 March, 2001: First revision. Supports the auth process via oauth, and retrieval of user info and activities.
-
 # Notice #
 
 To be clear: __I am not employed by fitbit.com__.  I created this library to assist other ruby developers in creating interesting applications on top of fitbit.com's data store and device data stream.
@@ -113,4 +89,4 @@ The Fitbit REST API is in BETA right now, and so it will quite likely change ove
 
 ### Copyright ###
 
-Copyright (c) 2011 Zachery Moneypenny. See LICENSE.txt for further details.
+Copyright (c) 2011 Zachery Moneypenny. See LICENSE for further details.
