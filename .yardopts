@@ -1,0 +1,7 @@
+--no-private
+--protected
+--exclude /spec
+--exclude /pkg
+-
+ChangeLog
+LICENSE
