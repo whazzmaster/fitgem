@@ -11,6 +11,8 @@ ChangeLog
 		the API was expecting.  Changed "en_US" to "en-US" and "en_GB" to "en-GB". Also provided
 		documentation for the units.
 
+	* Added Fitgem::FoodFormType to be used in calls to Fitgem::Client#create_food
+
 	* 
 
 2011-07-12 Zachery Moneypenny <fitgem@whazzmaster.com>
