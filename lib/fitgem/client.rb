@@ -18,8 +18,22 @@ require 'uri'
 module Fitgem
   class Client
 
+    # Sets or gets the api_version to be used in API calls
+    #
+    # @return [String]
     attr_accessor :api_version
+
+    # Sets or gets the api unit system to be used in API calls
+    #
+    # @return [String]
+    #
+    # @example Set this using the {Fitgem::ApiUnitSystem}
+    #   client.api_unit_system = Fitgem::ApiUnitSystem.UK
     attr_accessor :api_unit_system
+
+    # Sets or gets the user id to be used in API calls
+    #
+    # @return [String]
     attr_accessor :user_id
 
     def initialize(options = {})
@@ -61,11 +75,10 @@ module Fitgem
     private
 
       def consumer
-        @consumer ||= OAuth::Consumer.new(
-          @consumer_key,
-          @consumer_secret,
-          { :site => 'http://api.fitbit.com', :request_endpoint => @proxy }
-        )
+        @consumer ||= OAuth::Consumer.new(@consumer_key, @consumer_secret, { 
+          :site => 'http://api.fitbit.com', 
+          :proxy => @proxy
+        })
       end
 
       def access_token
