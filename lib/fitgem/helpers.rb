@@ -1,7 +1,19 @@
 module Fitgem
   class Client
-
-    # Should return date as YYYY-MM-DD
+    # Format any of a variety of date types into the formatted string
+    # required when using the fitbit API.
+    #
+    # The date parameter can take several different kind of objects: a
+    # DateTime object, a Date object, a Time object or a String object.  Furthermore,
+    # the string object may be either the date in a preformatted string
+    # ("yyyy-MM-dd"), or it may be the string values "today" or
+    # "tomorrow".
+    #
+    # @param [DateTime, Date, Time, String] date The object to format into a
+    #   date string
+    # @raise [Fitgem::InvalidArgumentError] Raised when the object is
+    #   not a DateTime, Date, Time or String object
+    # @return [String] Date in "yyyy-MM-dd" string format
     def format_date(date)
       if date.is_a? String
         case date
