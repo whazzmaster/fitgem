@@ -13,6 +13,10 @@ ChangeLog
 
 	* Added Fitgem::FoodFormType to be used in calls to Fitgem::Client#create_food
 
+	* Added Fitgem::Client#log_sleep to log sleep data to fitbit
+
+	* Added Fitgem::Client#delete_sleep_log to delete previously logged sleep data
+
 	* 
 
 2011-07-12 Zachery Moneypenny <fitgem@whazzmaster.com>
