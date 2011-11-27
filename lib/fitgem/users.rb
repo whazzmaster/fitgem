@@ -1,18 +1,30 @@
 module Fitgem
   class Client
-
-    def user_info(options = {})
-      get("/user/#{@user_id}/profile.json")
+    # Get information aobut current user
+    #
+    # @param [Hash] opts User information request data
+    # @return [Hash] User information
+    def user_info(opts={})
+      get("/user/#{@user_id}/profile.json", opts)
     end
 
-    # options[:gender] optional Gender; (MALE/FEMALE/NA)
-    # options[:birthday] optional Date of Birth; in the format yyyy-MM-dd
-    # options[:height] optional Height
-    # options[:nickname] optional Nickname
-    # options[:fullName] optional Full name
-    # options[:timezone] optional Timezone; in the format "America/Los_Angeles"
-    def update_user_info(options)
-      post("/user/#{@user_id}/profile.json", options)
+    # Update profile information for current user
+    #
+    # @param [Hash] opts User profile information
+    # @option opts [String] :gender Gender, valid values are MALE, FEMALE, NA
+    # @option opts [DateTime, Date, String] :birthday Birthday, in
+    #   "yyyy-MM-dd" if a String
+    # @option opts [Decimal, Integer, String] :height Height, in format
+    #   "X.XX" if a string
+    # @option opts [String] :nickname Nickname
+    # @option opts [String] :fullName Full name
+    # @option opts [String] :timezone Time zone; in the format
+    #   "America/Los Angelos"
+    #
+    # @return [Hash] Hash containing updated profile information
+    def update_user_info(opts)
+      opts[:birthday] = format_date(opts[:birthday]) if opts[:birthday]
+      post("/user/#{@user_id}/profile.json", opts)
     end
 
   end
