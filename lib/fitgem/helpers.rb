@@ -11,8 +11,8 @@ module Fitgem
     #
     # @param [DateTime, Date, Time, String] date The object to format into a
     #   date string
-    # @raise [Fitgem::InvalidArgumentError] Raised when the object is
-    #   not a DateTime, Date, Time or String object
+    # @raise [Fitgem::InvalidDateArgument] Raised when the object is
+    #   not a DateTime, Date, Time or a valid (yyyy-MM-dd) String object
     # @return [String] Date in "yyyy-MM-dd" string format
     def format_date(date)
       if date.is_a? String
@@ -22,14 +22,16 @@ module Fitgem
           when 'yesterday'
             return (Date.today-1).strftime("%Y-%m-%d")
           else
+            unless date =~ /\d{4}\-\d{2}\-\d{2}/
+              raise Fitgem::InvalidDateArgument, "Invalid date (#{date}), must be in yyyy-MM-dd format"
+            end
             return date
         end
       elsif Date === date || Time === date || DateTime === date
         return date.strftime("%Y-%m-%d")
       else
-        raise Fitgem::InvalidArgumentError, "Date used must be a date/time object or a string in the format YYYY-MM-DD; current argument is a #{date.class}"
+        raise Fitgem::InvalidDateArgument, "Date used must be a date/time object or a string in the format YYYY-MM-DD; supplied argument is a #{date.class}"
       end
     end
-
   end
 end
