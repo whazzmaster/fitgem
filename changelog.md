@@ -16,7 +16,9 @@
 * Added Fitgem::Client#delete_sleep_log to delete previously logged sleep data
 * Added unit tests for parameter validation for many methods
 * Overhauled notifications methods, including extensive documentation,
-  unit tests, refactoring, and a couple of bug fixes.
+  unit tests, refactoring, and a couple of bug fixes.  These methods now
+  return both the HTTP status code and the JSON response body.  See https://wiki.fitbit.com/display/API/Subscriptions-API
+  for information on how to interpret each of the error codes.
 
 ### 2011-07-12 Zachery Moneypenny <fitgem@whazzmaster.com>
 

@@ -1,47 +1,126 @@
 module Fitgem
   class Client
-    
-    def create_subscription(options={})
-      unless options[:type] && [:sleep,:body,:activities,:foods].include?(options[:type])
-        raise Error, 'Must include options[:type] (values are :activities, :foods, :sleep, and :body)'
-      end
-      base_url = "/user/#{@user_id}/#{options[:type].to_s}/apiSubscriptions"
-      post_subscription(base_url, options)
+    SUBSCRIBABLE_TYPES = [:sleep, :body, :activities, :foods, :all]
+
+    # Get a list of all subscriptions
+    #
+    # @param [Hash] opts Subscription query data
+    # @option opts [Integer, String] :type The type of subscription (valid
+    #   values are :activities, :foods, :sleep, :body, and :all). REQUIRED
+    #
+    # @return [Hash] Hash contain subscription information
+    # @since v0.4.0
+    def subscriptions(opts)
+      get make_subscription_url(opts), make_headers(opts)
     end
-    
-    def remove_subscription(options={})
-      unless options[:type] && [:sleep,:body,:activities,:foods].include?(options[:type])
-        raise Error, 'Must include options[:type] (values are :activities, :foods, :sleep, and :body)'
-      end
-      unless options[:subscription_id]
-        raise Error, "Must include options[:subscription_id] to delete a subscription"
-      end
-      base_url = "/user/#{@user_id}/#{options[:type].to_s}/apiSubscriptions"
-      url = finalize_subscription_url(base_url, options)
-      headers = {}
-      headers['X-Fitgem-Subscriber-Id'] = options[:subscriber_id] if options[:subscriber_id]
-      delete(url, headers)
+
+    # Creates a notification subscription
+    #
+    # @note You must check the HTTP response code to check the status of the request to add a subscription.  See {https://wiki.fitbit.com/display/API/Subscriptions-API} for information about what the codes mean.
+    #
+    # @param [Hash] opts The notification subscription data
+    # @option opts [Symbol] :type The type of subscription (valid
+    #   values are :activities, :foods, :sleep, :body, and :all). REQUIRED
+    # @option opts [Integer, String] :subscriptionId The subscription id 
+    #
+    # @return [Integer, Hash] An array containing the HTTP response code and
+    #   a hash containing confirmation information for the subscription.  
+    # @since v0.4.0
+    def create_subscription(opts)
+      resp = raw_post make_subscription_url(opts), EMPTY_BODY, make_headers(opts.merge({:use_subscription_id => true}))
+      [resp.code, extract_response_body(resp)]
     end
-    
+
+    # Removes a notification subscription
+    #
+    # @note You must check the HTTP response code to check the status of the request to remove a subscription.  See {https://wiki.fitbit.com/display/API/Subscriptions-API} for information about what the codes mean.
+    #
+    # @param [Hash] opts The notification subscription data
+    # @option opts [Symbol] :type The type of subscription to remove;
+    #   valid values are :activities, :foods, :sleep, :body, and :all).
+    #   REQUIRED
+    # @option opts [Integer, String] :subscription_id The id of the
+    #   subscription to remove.
+    # @option opts [Inteter, Stri)g] :subscriber_id The subscriber id of the client
+    #   application, created via {http://dev.fitbit.com}
+    #
+    # @return [Integer, Hash] An array containing the HTTP response code and
+    #   a hash containing confirmation information for the subscription.  
+    # @since v0.4.0
+    def remove_subscription(opts)
+      resp = raw_delete make_subscription_url(opts), make_headers(opts.merge({:use_subscription_id => true}))
+      [resp.code, extract_response_body(resp)]
+    end
+
     protected
-    
-    def finalize_subscription_url(base_url, options={})
-      url = base_url
-      if options[:subscription_id]
-        url += "/#{options[:subscription_id]}"
+
+    # Ensures that the type supplied is valid
+    #
+    # @param [Symbol] subscription_type The type of subscription;
+    #   valid values are (:sleep, :body, :activities, :foods, and
+    #   :all)
+    # @raise [Fitgem::InvalidArgumentError] Raised if the supplied type
+    #   is not valid
+    # @return [Boolean] 
+    def validate_subscription_type(subscription_type)
+      unless subscription_type && SUBSCRIBABLE_TYPES.include?(subscription_type)
+        raise Fitgem::InvalidArgumentError, "Invalid subscription type (valid values are #{SUBSCRIBABLE_TYPES.join(', ')})"
       end
-      if options[:subscription_response_format]
-        url += ".#{options[:subscription_response_format]}"
-      else
-        url += ".json"
+      true
+    end
+
+    # Create the headers hash for subscription management calls
+    #
+    # This method both adds approriate headers given what is in the
+    # options hash, as well as removes extraneous hash entries that are
+    # not needed in the headers of the request sent to the API.
+    #
+    # @param [Hash] opts The options for header creation
+    # @option opts [String] :subscriber_id The subscriber id of the client
+    #   application, created via {http://dev.fitbit.com}
+    # @return [Hash] The headers has to pass to the get/post/put/delete
+    #   methods
+    def make_headers(opts)
+      headers = opts.dup
+      if opts[:subscriber_id]
+        headers['X-Fitbit-Subscriber-Id'] = opts[:subscriber_id]
+        headers.delete :subscriber_id
       end
-      url
+
+      headers.delete :subscription_id if headers[:subscription_id]
+      headers.delete :type if headers[:type]
+      headers.delete :use_subscription_id if headers[:use_subscription_id]
+
+      headers
     end
-    
-    def post_subscription(base_url, options)
-      url = finalize_subscription_url(base_url, options)
-      post(url, options)
+
+    # Create the subscription management API url
+    #
+    # @param [Hash] opts The options on how to construct the
+    #   subscription API url
+    # @option opts [Symbol] :type The type of subscription;
+    #   valid values are (:sleep, :body, :activities, :foods, and
+    #   :all)
+    # @option opts [Symbol] :use_subscription_id If true, then
+    #   opts[:subscription_id] will be used in url construction
+    # @option opts [String] :subscription_id The id of the subscription
+    #   that the URL is for
+    # @return [String] The url to use for subscription management
+    def make_subscription_url(opts)
+      validate_subscription_type opts[:type]
+      path = if opts[:type] == :all
+               ""
+             else
+               "/"+opts[:type].to_s
+             end
+      url = "/user/#{@user_id}#{path}/apiSubscriptions"
+      if opts[:use_subscription_id]
+        unless opts[:subscription_id]
+          raise Fitgem::InvalidArgumentError, "Must include options[:subscription_id]"
+        end
+        url += "/#{opts[:subscription_id]}"
+      end
+      url += ".json"
     end
-    
   end
 end
