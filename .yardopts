@@ -3,5 +3,5 @@
 --exclude /spec
 --exclude /pkg
 -
-ChangeLog
+changelog.md
 LICENSE
