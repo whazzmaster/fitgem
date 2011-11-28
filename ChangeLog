@@ -17,7 +17,10 @@ ChangeLog
 
 	* Added Fitgem::Client#delete_sleep_log to delete previously logged sleep data
 
-	* 
+	* Added unit tests for parameter validation for many methods
+
+	* Overhauled notifications methods, including extensive documentation,
+		unit tests, refactoring, and a couple of bug fixes.
 
 2011-07-12 Zachery Moneypenny <fitgem@whazzmaster.com>
 
