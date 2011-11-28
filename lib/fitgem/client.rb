@@ -18,6 +18,7 @@ require 'uri'
 module Fitgem
   class Client
     API_VERSION = "1"
+    EMPTY_BODY = ""
 
     # Sets or gets the api_version to be used in API calls
     #"
@@ -178,27 +179,36 @@ module Fitgem
       end
 
       def get(path, headers={})
+        extract_response_body raw_get(path, headers)
+      end
+
+      def raw_get(path, headers={})
         headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
         uri = "/#{@api_version}#{path}"
-        oauth_response = access_token.get(uri, headers)
-        process_response oauth_response
+        access_token.get(uri, headers)
       end
 
       def post(path, body='', headers={})
+        extract_response_body raw_post(path, body, headers)
+      end
+
+      def raw_post(path, body='', headers={})
         headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
         uri = "/#{@api_version}#{path}"
-        oauth_response = access_token.post(uri, body, headers)
-        process_response oauth_response
+        access_token.post(uri, body, headers)
       end
 
       def delete(path, headers={})
-        headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
-        uri = "/#{@api_version}#{path}"
-        oauth_response = access_token.delete(uri, headers)
-        process_response oauth_response
+        extract_response_body raw_delete(path, headers)
       end
 
-      def process_response(resp)
+      def raw_delete(path, headers={})
+        headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
+        uri = "/#{@api_version}#{path}"
+        access_token.delete(uri, headers)
+      end
+
+      def extract_response_body(resp)
         resp.nil? || resp.body.nil? ? {} : JSON.parse(resp.body)
       end
   end
