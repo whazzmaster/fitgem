@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'ostruct'
 
 describe Fitgem::Client do
   before(:each) do
