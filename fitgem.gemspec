@@ -12,10 +12,12 @@ Gem::Specification.new do |s|
   s.email       = ["fitgem@whazzmaster.com"]
   s.homepage    = "http://github.com/whazzmaster/fitgem"
   s.summary     = %q{OAuth client library to the data on fitbit.com}
-  s.description = %q{A client library to send and retrieve workout/weight data from fitbit.com}
+  s.description = %q{A client library to send and retrieve workout, weight, and diet data from fitbit.com}
 
   s.rubyforge_project = "fitgem"
+
   s.add_dependency "oauth"
+  s.add_development_dependency "rake"
   s.add_development_dependency "rspec"
   s.add_development_dependency "guard"
   s.add_development_dependency "guard-rspec"
@@ -27,11 +29,14 @@ Gem::Specification.new do |s|
   s.files         = [
     '.gitignore',
     '.rvmrc',
+    '.yardopts',
+    '.travis.yml',
     'Gemfile',
     'Guardfile',
     'LICENSE',
     'README.md',
     'Rakefile',
+    'changelog.md',
     'fitgem.gemspec',
     'lib/fitgem.rb',
     'lib/fitgem/version.rb',
@@ -40,6 +45,7 @@ Gem::Specification.new do |s|
     'lib/fitgem/client.rb',
     'lib/fitgem/devices.rb',
     'lib/fitgem/errors.rb',
+    'lib/fitgem/food_form.rb',
     'lib/fitgem/foods.rb',
     'lib/fitgem/friends.rb',
     'lib/fitgem/helpers.rb',
@@ -50,11 +56,17 @@ Gem::Specification.new do |s|
     'lib/fitgem/users.rb',
     'lib/fitgem/water.rb',
     'spec/fitgem_spec.rb',
-    'spec/spec_helper.rb'
+    'spec/spec_helper.rb',
+    'spec/fitgem_notifications_spec.rb',
+    'spec/fitgem_helper_spec.rb',
+    'spec/fitgem_constructor_spec.rb'
   ]
   s.test_files   = [
     'spec/fitgem_spec.rb',
-    'spec/spec_helper.rb'
+    'spec/spec_helper.rb',
+    'spec/fitgem_notifications_spec.rb',
+    'spec/fitgem_helper_spec.rb',
+    'spec/fitgem_constructor_spec.rb'
   ]
   s.require_paths = ["lib"]
 end
