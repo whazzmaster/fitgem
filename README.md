@@ -1,4 +1,4 @@
-# Fitgem #
+# Fitgem [![Build Status](https://secure.travis-ci.org/whazzmaster/fitgem.png)](http://travis-ci.org/whazzmaster/fitgem)
 
 Provides access to fitbit.com data through their OAuth/REST API.  Without user authentication, any data that the a fitbit.com user has denoted as 'public' can be gathered.  If a user logs in via OAuth then all exposed data can be gathered.
 
