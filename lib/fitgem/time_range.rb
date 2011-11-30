@@ -9,6 +9,7 @@ module Fitgem
     #
     # Food:
     #   /foods/log/caloriesIn
+    #   /foods/log/water
     # 
     # Activity:
     #   /activities/log/calories
@@ -24,10 +25,14 @@ module Fitgem
     #   /activities/log/activityCalories
     # 
     # Sleep:
-    #   /sleep/minutesAsleep
-    #   /sleep/minutesAwake
-    #   /sleep/awakeningsCount
+    #   /sleep/startTime
     #   /sleep/timeInBed
+    #   /sleep/minutesAsleep
+    #   /sleep/awakeningsCount
+    #   /sleep/minutesAwake
+    #   /sleep/minutesToFallAsleep
+    #   /sleep/minutesAfterWakeup
+    #   /sleep/efficiency
     # 
     # Body:
     #   /body/weight
@@ -68,6 +73,6 @@ module Fitgem
       end
       range_str
     end
-    
+
   end
 end

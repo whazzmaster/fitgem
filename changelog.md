@@ -16,6 +16,7 @@
 * Added Fitgem::FoodFormType to be used in calls to Fitgem::Client#create_food
 * Added Fitgem::Client#log_sleep to log sleep data to fitbit
 * Added Fitgem::Client#delete_sleep_log to delete previously logged sleep data
+* Added to documentation of supported endpoints for <tt>Fitgem::Client#data_by_time_range</tt>
 * Added unit tests for parameter validation for many methods
 * Overhauled notifications methods, including extensive documentation,
   unit tests, refactoring, and a couple of bug fixes.  These methods now
