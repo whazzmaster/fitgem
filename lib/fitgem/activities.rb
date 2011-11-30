@@ -4,6 +4,16 @@ module Fitgem
     #         Activity Retrieval Methods
     # ==========================================
 
+    # Get a list of all activities
+    #
+    # The returned list includes all public activities plus any
+    # activities that the current user created and logged
+    #
+    # @return [Hash] Hash tree of all activities
+    def activities
+      get("/activities.json")
+    end
+
     # Get all of the logged activities on the supplied date
     #
     # @param [Datetime] date the date to retrieve logged activities for
@@ -43,6 +53,14 @@ module Fitgem
     #   about the activity
     def activity(id)
       get("/activities/#{id}.json")
+    end
+
+    # Get the activity statistics for the current user
+    #
+    # @return [Hash] Hash containing statistics for the activities that
+    # the user has logged
+    def activity_statistics
+      get("/user/#{@user_id}/activities.json")
     end
 
     # ==========================================
