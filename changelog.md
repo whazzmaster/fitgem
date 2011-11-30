@@ -8,11 +8,11 @@
 #### 2011-11-29 Zachery Moneypenny <fitgem@whazzmaster.com>
 
 * Added YARD documentation to thoroughly document code
-* DEPRECATED: Fitgem::Client#log_weight method, use Fitgem::Client#log_body_measurements instead.  
+* DEPRECATED: <tt>Fitgem::Client#log_weight</tt> method, use <tt>Fitgem::Client#log_body_measurements</tt> instead.  
   The new method allows you to log more than weight (bicep size, body fat %, etc.)
-* Added Fitgem::FoodFormType to be used in calls to Fitgem::Client#create_food
-* Added Fitgem::Client#log_sleep to log sleep data to fitbit
-* Added Fitgem::Client#delete_sleep_log to delete previously logged sleep data
+* Added <tt>Fitgem::FoodFormType</tt> to be used in calls to <tt>Fitgem::Client#create_food</tt>
+* Added <tt>Fitgem::Client#log_sleep</tt> to log sleep data to fitbit
+* Added <tt>Fitgem::Client#delete_sleep_log</tt> to delete previously logged sleep data
 * Added <tt>Fitgem::Client#activities</tt> method to get a list of all activities
 * Added <tt>Fitgem::Client#activity_statistics</tt> method to get statistics for all logged activities
 * Added to documentation of supported endpoints for <tt>Fitgem::Client#data_by_time_range</tt>
