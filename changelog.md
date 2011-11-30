@@ -23,6 +23,8 @@
   for information on how to interpret each of the error codes.
 * Added fitgem to travis-ci for continuous integration (http://travis-ci.org/#!/whazzmaster/fitgem)
 * Added fitgem to rubydoc.info (http://rubydoc.info/github/whazzmaster/fitgem/master/frames)
+* Updated README
+* Moved OAuth documentation from the README to the [fitgem wiki](https://github.com/whazzmaster/fitgem/wiki/The-OAuth-Process)
 
 ## v0.3.6
 

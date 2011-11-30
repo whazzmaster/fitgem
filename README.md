@@ -1,77 +1,39 @@
 # Fitgem [![Build Status](https://secure.travis-ci.org/whazzmaster/fitgem.png)](http://travis-ci.org/whazzmaster/fitgem)
 
-Provides access to fitbit.com data through their OAuth/REST API.  Without user authentication, any data that the a fitbit.com user has denoted as 'public' can be gathered.  If a user logs in via OAuth then all exposed data can be gathered.
+Provides access to fitbit.com data through their OAuth/REST API.  Fitgem can pull data with or without user authentication. Without user authentication, any data that the a fitbit.com user has denoted as 'public' can be gathered.  If a user logs in via OAuth then all exposed data can be gathered.
 
-The fitbit.com API is currently (March 2011) in BETA and is under development to extend its reach.  Since it is early in the lifecycle of the API I expect this gem to go through a number of revisions as we attempt to match the functionality of their platform.
+The fitbit.com API is currently (Late 2011) in BETA and is under development to extend its reach.  Since it is early in the lifecycle of the API I expect this gem to go through a number of revisions as we attempt to match the functionality of their platform.
 
 # Usage #
 
-If you've ever done any oauth client programming then the model will appear familiar.  Your first step, if haven't already, is to visit [https://dev.fitbit.com/](https://dev.fitbit.com/) and register your application to get your __consumer key__ and __consumer secret__ and set your __callback URL__, if appropriate for your app.  There's more documentation at the site so I won't belabor it here.
+Install fitgem:
+```
+$ gem install fitgem
+```
 
-Below I've included two sample scripts that use Fitgem::Client to retrieve data.  One shows how to do the initial authorization _without_ doing the callback; the other shows how to use saved values from that initial authorization to reconnect with the API and get subsequent information.
-
-	require 'fitgem'
-
-	consumer_key = 'your-app-consumer-key'
-	consumer_secret = 'your-app-consumer-secret'
-
-	client = Fitgem::Client.new({:consumer_key => consumer_key, :consumer_secret => consumer_secret})
-
-	request_token = client.request_token
-	token = request_token.token
-	secret = request_token.secret
-
-	puts "Go to http://www.fitbit.com/oauth/authorize?oauth_token=#{token} and then enter the verifier code below and hit Enter"
-	verifier = gets.chomp
-
-	access_token = client.authorize(token, secret, { :oauth_verifier => verifier })
-
-	puts "Verifier is: "+verifier
-	puts "Token is:    "+access_token.token
-	puts "Secret is:   "+access_token.secret
-
-After running this and successfully connecting with verifier string that is displayed by the Fitgem site, you can reconnect using the script below.  To do so, take the token and secret that were printed out from the script above and paste them in where appropriate.  In this example we are using the client to get the
-
-	require 'fitgem'
-
-	consumer_key = 'your-app-consumer-key'
-	consumer_secret = 'your-app-consumer-secret'
-	token = 'token-received-in-above-script'
-	secret = 'secret-received-in-above-script'
-	user_id = 'your-user-id' # may be similar to '12345N'
-
-	client = Fitgem::Client.new({:consumer_key => consumer_key, :consumer_secret => consumer_secret, :token => token, :secret => secret, :user_id => user_id})
-	access_token = client.reconnect(token, secret)
- 	p client.user_info
-
-You can use this script to learn about the data structures that are returned from different API calls.  Since this library always retrieves JSON responses and then parses it into Ruby structures, you can interrogate the response data with simple calls to hashes.
+[The wiki has information](https://github.com/whazzmaster/fitgem/wiki/The-OAuth-Process) on how to use fitgem in the OAuth handshake with [fitbit.com](http://www.fitbit.com)
 
 ## Usage in a Rails Application ##
 
-We've started to develop an example app using the fitgem client.  See [https://github.com/whazzmaster/fitgem-client](https://github.com/whazzmaster/fitgem-client) for more information.
+We've started to develop an example app using the fitgem client.  See [https://github.com/whazzmaster/fitgem-client](https://github.com/whazzmaster/fitgem-client) for more information or check out [the hosted version](http://www.fitbit-client.com). The fitgem-client project is evolving more slowly than the library itself, but work continues.
 
 # Subscriptions #
 
 The Fitbit API allows for you to set up notification subscription so that when values change (via automatic syncs with the fitbit device) your applications can be notified automatically.  You can set up a default subscription callback URL via the [Fitbit dev site](https://dev.fitbit.com/ 'Fitbit Developer Site') and then use the Subscriptions API to add or remove subscriptions for individual users.
 
-__Currently, notification management is experimental in this gem__.  We've built up code to add and remove specific types of subscriptions (foods, activities, sleep, body) but there seems to be some server-side issues with creating general, all-purpose subscriptions.
+__Currently, notification management is experimental in this gem__.  There is currently code to add, remove, and list subscriptions (foods, activities, sleep, body, and all collections).  
 
-The docs are very fuzzy on subscription support at the moment; we definitely plan on extending this support once the backend has matured (or the online docs have improved).
 
-# FAQs #
+# FAQs 
+## What About ruby-fitbit?
 
-## What About ruby-fitbit? ##
+There is a good looking gem called [ruby-fitbit](https://github.com/danmayer/ruby-fitbit "ruby-fitbit") that also aims to collect data from the site.  It was created before they released their REST API and uses screen-scraping to gather the data rather than through their API.  I looked into forking it and refactoring to use the new API but after looking through the code I felt it would be more of a total rewrite and so decided to create a new gem that I could design from scratch.
 
-There is a good looking gem called [ruby-fitbit](https://github.com/danmayer/ruby-fitbit "ruby-fitbit") that
-also aims to collect data from the site.  It was created before they released their REST API and uses screen-scraping to gather the data rather than through their API.  I looked into forking it and refactoring
-to use the new API but after looking through the code I felt it would be more of a total rewrite and so decided
-to create a new gem that I could design from scratch.
+## Why the Name Change?
 
-## Why the Name Change? ##
+It turns out that Fitbit.com does not want people to create libraries or applications that incorporate the name 'fitbit'.  So, on May 12th, 2011 I changed the name of the project/gem from 'fitbit' to 'fitgem'.
 
-It turns out that Fitbit.com does not want people to create libraries or applications that incorporate the name 'fitbit'.  So, on May 12th I changed the name of the project/gem from 'fitbit' to 'fitgem'.
-
-# Notice #
+# Notice
 
 To be clear: __I am not employed by fitbit.com__.  I created this library to assist other ruby developers in creating interesting applications on top of fitbit.com's data store and device data stream.
 
