@@ -21,6 +21,8 @@
   unit tests, refactoring, and a couple of bug fixes.  These methods now
   return both the HTTP status code and the JSON response body.  See https://wiki.fitbit.com/display/API/Subscriptions-API
   for information on how to interpret each of the error codes.
+* Added fitgem to travis-ci for continuous integration (http://travis-ci.org/#!/whazzmaster/fitgem)
+* Added fitgem to rubydoc.info (http://rubydoc.info/github/whazzmaster/fitgem/master/frames)
 
 ## v0.3.6
 
