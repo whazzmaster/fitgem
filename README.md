@@ -15,7 +15,7 @@ $ gem install fitgem
 
 ## Usage in a Rails Application ##
 
-We've started to develop an example app using the fitgem client.  See [https://github.com/whazzmaster/fitgem-client](https://github.com/whazzmaster/fitgem-client) for more information or check out [the hosted version](http://www.fitbit-client.com). The fitgem-client project is evolving more slowly than the library itself, but work continues.
+We've started to develop an example app using the fitgem client.  See [https://github.com/whazzmaster/fitgem-client](https://github.com/whazzmaster/fitgem-client) for more information or check out [the hosted version](http://www.fitbitclient.com). The fitgem-client project is evolving more slowly than the library itself, but work continues.
 
 # Subscriptions #
 
