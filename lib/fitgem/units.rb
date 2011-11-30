@@ -14,14 +14,14 @@ module Fitgem
     #
     # @return [String]
     def self.US
-      "en-US"
+      "en_US"
     end
 
     # UK Units
     #
     # @return [String]
     def self.UK
-      "en-GB"
+      "en_GB"
     end
 
     # Metric Units
