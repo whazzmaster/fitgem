@@ -5,6 +5,9 @@ require 'fitgem/users'
 require 'fitgem/activities'
 require 'fitgem/sleep'
 require 'fitgem/water'
+require 'fitgem/blood_pressure'
+require 'fitgem/glucose'
+require 'fitgem/heart_rate'
 require 'fitgem/units'
 require 'fitgem/foods'
 require 'fitgem/friends'
@@ -32,7 +35,7 @@ module Fitgem
     # @example Set this using the {Fitgem::ApiUnitSystem}
     #   client.api_unit_system = Fitgem::ApiUnitSystem.UK
     # @example May also be set in the constructor call
-    #   client = Fitgem::Client { 
+    #   client = Fitgem::Client {
     #     :consumer_key => my_key,
     #     :consumer_secret => my_secret,
     #     :token => fitbit_oauth_token,
@@ -76,11 +79,11 @@ module Fitgem
     #   client = Fitgem::Client.new { :consumer_key => my_key, :consumer_secret => my_secret }
     #
     # @example User has already authorized with fitbit, and we have a stored token/secret
-    #   client = Fitgem::Client.new { 
-    #     :consumer_key => my_key, 
-    #     :consumer_secret => my_secret, 
-    #     :token => fitbit_oauth_token, 
-    #     :secret => fitbit_oauth_secret 
+    #   client = Fitgem::Client.new {
+    #     :consumer_key => my_key,
+    #     :consumer_secret => my_secret,
+    #     :token => fitbit_oauth_token,
+    #     :secret => fitbit_oauth_secret
     #   }
     #
     # @return [Client] A Fitgem::Client; may be in a logged-in state or
@@ -168,8 +171,8 @@ module Fitgem
     private
 
       def consumer
-        @consumer ||= OAuth::Consumer.new(@consumer_key, @consumer_secret, { 
-          :site => 'http://api.fitbit.com', 
+        @consumer ||= OAuth::Consumer.new(@consumer_key, @consumer_secret, {
+          :site => 'http://api.fitbit.com',
           :proxy => @proxy
         })
       end
