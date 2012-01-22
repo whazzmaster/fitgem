@@ -23,7 +23,15 @@ module Fitgem
     #   /activities/log/minutesVeryActive
     #   /activities/log/activeScore
     #   /activities/log/activityCalories
-    # 
+    #
+    # Raw Tracker Activity:
+    #   /activities/tracker/calories
+    #   /activities/tracker/steps
+    #   /activities/tracker/distance
+    #   /activities/tracker/floors
+    #   /activities/tracker/elevation
+    #   /activities/tracker/activeScore
+    #
     # Sleep:
     #   /sleep/startTime
     #   /sleep/timeInBed

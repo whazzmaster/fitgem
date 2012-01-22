@@ -8,6 +8,9 @@ module Fitgem
   class InvalidDateArgument < InvalidArgumentError
   end
 
+  class InvalidTimeArgument < InvalidArgumentError
+  end
+
   class InvalidTimeRange < InvalidArgumentError
   end
 end

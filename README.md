@@ -2,7 +2,7 @@
 
 Provides access to fitbit.com data through their OAuth/REST API.  Fitgem can pull data with or without user authentication. Without user authentication, any data that the a fitbit.com user has denoted as 'public' can be gathered.  If a user logs in via OAuth then all exposed data can be gathered.
 
-The fitbit.com API is currently (Late 2011) in BETA and is under development to extend its reach.  Since it is early in the lifecycle of the API I expect this gem to go through a number of revisions as we attempt to match the functionality of their platform.
+The fitbit.com API is currently (Early 2012) in BETA and is under development to extend its reach.  Since it is early in the lifecycle of the API I expect this gem to go through a number of revisions as we attempt to match the functionality of their platform.
 
 # Usage #
 

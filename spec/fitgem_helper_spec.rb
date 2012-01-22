@@ -58,7 +58,7 @@ describe Fitgem::Client do
       date = "2011-3-2"
       expect {
         @client.format_date(date)
-      }.to raise_error Fitgem::InvalidDateArgument, "Invalid date (2011-3-2), must be in yyyy-MM-dd format" 
+      }.to raise_error Fitgem::InvalidDateArgument, "Invalid date (2011-3-2), must be in yyyy-MM-dd format"
     end
 
     it "rejects strings are formatted correctly but include non-numeric elements" do
@@ -74,5 +74,54 @@ describe Fitgem::Client do
         @client.format_date(date)
       }.to raise_error Fitgem::InvalidDateArgument, "Date used must be a date/time object or a string in the format YYYY-MM-DD; supplied argument is a Fixnum"
     end
-  end 
+  end
+
+  describe "#format_time" do
+    it "accepts DateTime objects" do
+      time = DateTime.parse("3rd Feb 2001 04:05:06 PM")
+      @client.format_time(time).should == "16:05"
+    end
+
+    it "accepts Time objects" do
+      time = Time.mktime 2012, 1, 20, 13, 33, 30
+      @client.format_time(time).should == "13:33"
+    end
+
+    it "accepts the string 'now' to denote the current localtime" do
+      now = DateTime.now
+      @client.format_time('now').should == now.strftime("%H:%M")
+    end
+
+    it "accepts strings in HH:mm format" do
+      time = "04:20"
+      @client.format_time(time).should == "04:20"
+    end
+
+    it "rejects Date objects" do
+      date = Date.today
+      expect {
+        @client.format_time(date)
+      }.to raise_error Fitgem::InvalidTimeArgument
+    end
+
+    it "rejects strings that are not in HH:mm format" do
+      time = "4:20pm"
+      expect {
+        @client.format_time(time)
+      }.to raise_error Fitgem::InvalidTimeArgument
+    end
+
+    it "rejects strings that are formatted correctly but include non-numeric elements" do
+      time = "4a:33"
+      expect {
+        @client.format_time(time)
+      }.to raise_error Fitgem::InvalidTimeArgument
+    end
+
+    it "rejects arguments that do not conform to accepted types" do
+      expect {
+        @client.format_time(200)
+      }.to raise_error Fitgem::InvalidTimeArgument
+    end
+  end
 end
