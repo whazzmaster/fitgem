@@ -21,10 +21,10 @@ We've started to develop an example app using the fitgem client.  See [https://g
 
 The Fitbit API allows for you to set up notification subscription so that when values change (via automatic syncs with the fitbit device) your applications can be notified automatically.  You can set up a default subscription callback URL via the [Fitbit dev site](https://dev.fitbit.com/ 'Fitbit Developer Site') and then use the Subscriptions API to add or remove subscriptions for individual users.
 
-__Currently, notification management is experimental in this gem__.  There is currently code to add, remove, and list subscriptions (foods, activities, sleep, body, and all collections).  
+__Currently, notification management is experimental in this gem__.  There is currently code to add, remove, and list subscriptions (foods, activities, sleep, body, and all collections).
 
 
-# FAQs 
+# FAQs
 ## What About ruby-fitbit?
 
 There is a good looking gem called [ruby-fitbit](https://github.com/danmayer/ruby-fitbit "ruby-fitbit") that also aims to collect data from the site.  It was created before they released their REST API and uses screen-scraping to gather the data rather than through their API.  I looked into forking it and refactoring to use the new API but after looking through the code I felt it would be more of a total rewrite and so decided to create a new gem that I could design from scratch.
@@ -51,4 +51,4 @@ The Fitbit REST API is in BETA right now, and so it will quite likely change ove
 
 ### Copyright ###
 
-Copyright (c) 2011 Zachery Moneypenny. See LICENSE for further details.
+Copyright (c) 2011-2012 Zachery Moneypenny. See LICENSE for further details.
