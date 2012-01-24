@@ -27,7 +27,7 @@ module Fitgem
     #   a hash containing confirmation information for the subscription.  
     # @since v0.4.0
     def create_subscription(opts)
-      resp = raw_post make_subscription_url(opts), EMPTY_BODY, make_headers(opts.merge({:use_subscription_id => true}))
+      resp = raw_post make_subscription_url(opts.merge({:use_subscription_id => true})), EMPTY_BODY, make_headers(opts)
       [resp.code, extract_response_body(resp)]
     end
 
@@ -48,7 +48,7 @@ module Fitgem
     #   a hash containing confirmation information for the subscription.  
     # @since v0.4.0
     def remove_subscription(opts)
-      resp = raw_delete make_subscription_url(opts), make_headers(opts.merge({:use_subscription_id => true}))
+      resp = raw_delete make_subscription_url(opts.merge({:use_subscription_id => true})), make_headers(opts)
       [resp.code, extract_response_body(resp)]
     end
 
@@ -81,16 +81,10 @@ module Fitgem
     # @return [Hash] The headers has to pass to the get/post/put/delete
     #   methods
     def make_headers(opts)
-      headers = opts.dup
+      headers = {}
       if opts[:subscriber_id]
         headers['X-Fitbit-Subscriber-Id'] = opts[:subscriber_id]
-        headers.delete :subscriber_id
       end
-
-      headers.delete :subscription_id if headers[:subscription_id]
-      headers.delete :type if headers[:type]
-      headers.delete :use_subscription_id if headers[:use_subscription_id]
-
       headers
     end
 
@@ -109,10 +103,10 @@ module Fitgem
     def make_subscription_url(opts)
       validate_subscription_type opts[:type]
       path = if opts[:type] == :all
-               ""
-             else
-               "/"+opts[:type].to_s
-             end
+        ""
+      else
+        "/"+opts[:type].to_s
+      end
       url = "/user/#{@user_id}#{path}/apiSubscriptions"
       if opts[:use_subscription_id]
         unless opts[:subscription_id]
