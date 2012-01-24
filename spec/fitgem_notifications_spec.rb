@@ -32,7 +32,7 @@ describe Fitgem::Client do
 
     it "adds the :use_subscription_id flag and calls #make_headers" do
       opts = { :subscriber_id => "5555", :type => :all, :subscription_id => "320" }
-      @client.should_receive(:make_headers).with({ :subscriber_id => "5555", :type => :all, :subscription_id => "320", :use_subscription_id => true })
+      @client.should_receive(:make_headers).with({ :subscriber_id => "5555", :type => :all, :subscription_id => "320"})
       @client.create_subscription(opts)
     end
 
@@ -69,7 +69,7 @@ describe Fitgem::Client do
 
     it "adds the :use_subscription_id flag and calls #make_headers" do
       opts = { :subscriber_id => "5555", :type => :all, :subscription_id => "320" }
-      @client.should_receive(:make_headers).with({ :subscriber_id => "5555", :type => :all, :subscription_id => "320", :use_subscription_id => true })
+      @client.should_receive(:make_headers).with({ :subscriber_id => "5555", :type => :all, :subscription_id => "320" })
       @client.remove_subscription(opts)
     end
 
