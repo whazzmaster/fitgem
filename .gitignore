@@ -5,3 +5,4 @@ pkg/*
 .yardoc/*
 test*.rb
 *.dmp
+.fitgem.yml
