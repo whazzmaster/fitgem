@@ -13,4 +13,13 @@ module Fitgem
 
   class InvalidTimeRange < InvalidArgumentError
   end
+
+  class InvalidUnitSystem < InvalidArgumentError
+  end
+
+  class InvalidMeasurementType < InvalidArgumentError
+  end
+
+  class ConnectionRequiredError < Exception
+  end
 end

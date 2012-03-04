@@ -150,6 +150,13 @@ module Fitgem
       access_token
     end
 
+    # Get the current state of the client
+    #
+    # @return True if api calls may be made, false if not
+    def connected?
+      !@access_token.nil?
+    end
+
     # Get an oauth request token
     #
     # @param [Hash] opts Request token request data; can be used to

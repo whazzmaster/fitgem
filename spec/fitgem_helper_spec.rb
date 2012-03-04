@@ -124,4 +124,87 @@ describe Fitgem::Client do
       }.to raise_error Fitgem::InvalidTimeArgument
     end
   end
+
+  describe "#label_for_measurement" do
+    it "accepts the supported Fitgem::ApiUnitSystem values" do
+      @client.api_unit_system = Fitgem::ApiUnitSystem.US
+      @client.label_for_measurement :duration, false
+      @client.api_unit_system = Fitgem::ApiUnitSystem.UK
+      @client.label_for_measurement :duration, false
+      @client.api_unit_system = Fitgem::ApiUnitSystem.METRIC
+      @client.label_for_measurement :duration, false
+    end
+
+    it "raises an InvalidUnitSystem error if the Fitgem::Client.api_unit_system value is invalid" do
+      expect {
+        @client.api_unit_system = "something else entirely"
+        @client.label_for_measurement :duration, false
+      }.to raise_error Fitgem::InvalidUnitSystem
+    end
+
+    it "accepts the supported values for the measurement_type parameter" do
+      @client.label_for_measurement :duration, false
+      @client.label_for_measurement :distance, false
+      @client.label_for_measurement :elevation, false
+      @client.label_for_measurement :height, false
+      @client.label_for_measurement :weight, false
+      @client.label_for_measurement :measurements, false
+      @client.label_for_measurement :liquids, false
+      @client.label_for_measurement :blood_glucose, false
+    end
+
+    it "raises an InvalidMeasurementType error if the measurement_type parameter is invalid" do
+      expect {
+        @client.label_for_measurement :homina, false
+      }.to raise_error Fitgem::InvalidMeasurementType
+    end
+
+    it "returns the correct values when the unit system is Fitgem::ApiUnitSystem.US" do
+      @client.api_unit_system = Fitgem::ApiUnitSystem.US
+      @client.label_for_measurement(:duration, false).should == "milliseconds"
+      @client.label_for_measurement(:distance, false).should == "miles"
+      @client.label_for_measurement(:elevation, false).should == "feet"
+      @client.label_for_measurement(:height, false).should == "inches"
+      @client.label_for_measurement(:weight, false).should == "pounds"
+      @client.label_for_measurement(:measurements, false).should == "inches"
+      @client.label_for_measurement(:liquids, false).should == "fl oz"
+      @client.label_for_measurement(:blood_glucose, false).should == "mg/dL"
+    end
+
+    it "returns the correct values when the unit system is Fitgem::ApiUnitSystem.UK" do
+      @client.api_unit_system = Fitgem::ApiUnitSystem.UK
+      @client.label_for_measurement(:duration, false).should == "milliseconds"
+      @client.label_for_measurement(:distance, false).should == "kilometers"
+      @client.label_for_measurement(:elevation, false).should == "meters"
+      @client.label_for_measurement(:height, false).should == "centimeters"
+      @client.label_for_measurement(:weight, false).should == "stone"
+      @client.label_for_measurement(:measurements, false).should == "centimeters"
+      @client.label_for_measurement(:liquids, false).should == "mL"
+      @client.label_for_measurement(:blood_glucose, false).should == "mmol/l"
+    end
+
+    it "returns the correct values when the unit system is Fitgem::ApiUnitSystem.METRIC" do
+      @client.api_unit_system = Fitgem::ApiUnitSystem.METRIC
+      @client.label_for_measurement(:duration, false).should == "milliseconds"
+      @client.label_for_measurement(:distance, false).should == "kilometers"
+      @client.label_for_measurement(:elevation, false).should == "meters"
+      @client.label_for_measurement(:height, false).should == "centimeters"
+      @client.label_for_measurement(:weight, false).should == "kilograms"
+      @client.label_for_measurement(:measurements, false).should == "centimeters"
+      @client.label_for_measurement(:liquids, false).should == "mL"
+      @client.label_for_measurement(:blood_glucose, false).should == "mmol/l"
+    end
+
+    context "when respecting the user's unit measurement preferences" do
+      before(:each) do
+        @client.stub(:connected?).and_return(true)
+        @client.stub(:user_info).and_return({"user" => {"distanceUnit"=>"en_GB", "glucoseUnit"=>"en_GB", "heightUnit"=>"en_GB", "waterUnit"=>"METRIC", "weightUnit"=>"en_GB"}})
+      end
+
+      it "returns the correct overridden measurement label" do
+        @client.api_unit_system = Fitgem::ApiUnitSystem.US
+        @client.label_for_measurement(:distance).should == "kilometers"
+      end
+    end
+  end
 end

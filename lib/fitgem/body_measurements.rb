@@ -25,7 +25,7 @@ module Fitgem
     #   an integer or a string in "X.XX'" format
     # @param [DateTime, String] date The date the weight should be
     #   logged, as either a DateTime or a String in "yyyy-MM-dd" format
-    # @return [Hash] 
+    # @return [Hash]
     #
     # @deprecated {#log_body_measurements} should be used instead of
     #   log_weight
@@ -35,7 +35,7 @@ module Fitgem
 
     # Log body measurements to fitbit for the current user
     #
-    # At least ONE measurement item is REQUIRED in the call, as well as the 
+    # At least ONE measurement item is REQUIRED in the call, as well as the
     # date. All measurement values to be logged for the user must be either an
     # Integer, a Decimal value, or a String in "X.XX" format. The
     # measurement units used for the supplied measurements are based on
@@ -54,13 +54,15 @@ module Fitgem
     # @option opts [Integer, Decimal, String] :bicep Bicep measurement
     # @option opts [DateTime, Date, String] :date Date to log measurements
     #   for; provided either as a DateTime, Date, or a String in
-    #   "yyyy-MM-dd" format 
+    #   "yyyy-MM-dd" format
     #
     # @return [Hash] Hash containing the key +:body+ with an inner hash
     #   of all of the logged measurements
     #
     # @since v0.4.0
     def log_body_measurements(opts)
+      # Update the date (if exists)
+      opts[:date] = format_date(opts[:date]) if opts[:date]
       post("/user/#{@user_id}/body.json", opts)
     end
   end

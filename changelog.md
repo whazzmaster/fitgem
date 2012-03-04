@@ -3,12 +3,42 @@
 
 # fitgem changelog
 
-## v0.4.0 
+## v0.5.2
+
+#### 2012-03-04 Zachery Moneypenny <fitgem@whazzmaster.com>
+
+* Added new <tt>symbolize_keys</tt> helper method for turning the string-key based return hashes into symbol-key based ones
+* Added new <tt>label_for_measurement</tt> helper method to get the correct unit measurement label given a measurement type and the current user's ApiUnitSystem setting
+* Added specs
+* Added new <tt>connected?</tt> method on Fitgem::Client that will report whether API calls may be made
+* Added <tt>InvalidUnitSystem</tt> error and <tt>InvalidMeasurementType</tt> error
+* Fixed a small issue where date values were not being formatted correctly in calls to <tt>log_body_measurements</tt>
+
+## v0.5.1
+
+#### 2012-01-24 Zachery Moneypenny <fitgem@whazzmaster.com>
+
+* Fix for creating and removing data subscriptions
+* Updated specs
+
+## v0.5.0
+
+#### 2012-01-22 Zachery Moneypenny <fitgem@whazzmaster.com>
+
+* Added view/log/delete access for blood pressure data
+* Added view/log/delete access for glucose data
+* Added view/log/delete access for heart rate data
+* Added updated time series documentation for new endpoints
+* Updated temporal information in the readme
+* Added unit tests for <tt>format_time</tt> method
+* Updated copyright date
+
+## v0.4.0
 
 #### 2011-11-29 Zachery Moneypenny <fitgem@whazzmaster.com>
 
 * Added YARD documentation to thoroughly document code
-* DEPRECATED: <tt>Fitgem::Client#log_weight</tt> method, use <tt>Fitgem::Client#log_body_measurements</tt> instead.  
+* DEPRECATED: <tt>Fitgem::Client#log_weight</tt> method, use <tt>Fitgem::Client#log_body_measurements</tt> instead.
   The new method allows you to log more than weight (bicep size, body fat %, etc.)
 * Added <tt>Fitgem::FoodFormType</tt> to be used in calls to <tt>Fitgem::Client#create_food</tt>
 * Added <tt>Fitgem::Client#log_sleep</tt> to log sleep data to fitbit
