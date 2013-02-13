@@ -68,7 +68,7 @@ module Fitgem
     # @return [Hash] Hash containing the calorie, distance, floors, and 
     # step goals for the current user
     def goals
-      get("/user/#{@user.id}/activities/goals/daily.json")
+      get("/user/#{@user_id}/activities/goals/daily.json")
     end
 
     # ==========================================
