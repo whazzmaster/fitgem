@@ -63,6 +63,14 @@ module Fitgem
       get("/user/#{@user_id}/activities.json")
     end
 
+    # Get the daily activity goals for the current user
+    #
+    # @return [Hash] Hash containing the calorie, distance, floors, and 
+    # step goals for the current user
+    def goals
+      get("/user/#{@user.id}/activities/goals/daily.json")
+    end
+
     # ==========================================
     #         Activity Update Methods
     # ==========================================
