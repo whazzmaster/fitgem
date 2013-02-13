@@ -6,3 +6,4 @@ pkg/*
 test*.rb
 *.dmp
 .fitgem.yml
+.idea
