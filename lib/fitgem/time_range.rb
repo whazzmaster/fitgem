@@ -73,9 +73,9 @@ module Fitgem
     def construct_date_range_fragment(options)
       range_str = "date/"
       if options[:base_date] && options[:period]
-        range_str += "#{options[:base_date]}/#{options[:period]}"
+        range_str += "#{format_date(options[:base_date])}/#{options[:period]}"
       elsif options[:base_date] && options[:end_date]
-        range_str += "#{options[:base_date]}/#{options[:end_date]}"
+        range_str += "#{format_date(options[:base_date])}/#{format_date(options[:end_date])}"
       else
         raise Fitgem::InvalidTimeRange, "Must supply either base_date and period OR base_date and end_date"
       end
