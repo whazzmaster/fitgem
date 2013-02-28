@@ -32,6 +32,13 @@ describe Fitgem::Client do
         @client.construct_date_range_fragment({:end_date => '2011-03-07', :period => '7d'})
       }.to raise_error(Fitgem::InvalidTimeRange)
     end
+
+    it 'formats DateTime objects to the required date format' do
+      span_start = DateTime.new(1997, 4, 18, 9, 30, 30)
+      span_end = DateTime.new(1999, 10, 3, 15, 30, 30)
+      frag = @client.construct_date_range_fragment base_date: span_start, end_date: span_end
+      frag.should eq('date/1997-04-18/1999-10-03')
+    end
   end
 
   describe "#format_date" do
