@@ -7,3 +7,4 @@ test*.rb
 *.dmp
 .fitgem.yml
 .idea
+.rvmrc
