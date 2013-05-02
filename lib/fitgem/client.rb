@@ -39,7 +39,7 @@ module Fitgem
     #     :consumer_key => my_key,
     #     :consumer_secret => my_secret,
     #     :token => fitbit_oauth_token,
-    #     :secret => :fitbit_oauth_secret,
+    #     :secret => fitbit_oauth_secret,
     #     :unit_system => Fitgem::ApiUnitSystem.METRIC
     #   }
     attr_accessor :api_unit_system
