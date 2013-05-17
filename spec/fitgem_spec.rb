@@ -8,7 +8,7 @@ describe Fitgem do
     })
   end
 
-  describe "global settings" do
+  describe 'global settings' do
     it 'should expose the api_version' do
       @client.api_version.should == "1"
     end
