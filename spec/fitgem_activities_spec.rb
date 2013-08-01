@@ -36,6 +36,15 @@ describe Fitgem::Client do
       }.to raise_error(Fitgem::InvalidArgumentError)
     end
 
+    it 'valid resources should not raise an error' do
+      [:calories, :steps, :distance, :floors, :elevation].each do |resource|
+        opts = { resource: resource, date: '2013-05-13', detailLevel: '15min' }
+        expect{
+          @client.intraday_time_series(opts)          
+        }.not_to raise_error
+      end
+    end
+
     it 'raises an exception if the date is missing' do
       expect {
         @client.intraday_time_series(@date_opts.merge!(date: nil))
