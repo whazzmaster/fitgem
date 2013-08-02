@@ -43,22 +43,26 @@ module Fitgem
     # indicate that the time value used is the current localtime.
     #
     # @param [DateTime, Time, String] time The object to format into a time string
+    # @param [Hash] opts format time options
+    # @option opts [TrueClass, FalseClass] :include_timezone Include timezone in the output or not
     # @raise [Fitgem::InvalidTimeArgument] Raised when the parameter object is not a
     #   DateTime, Time, or a valid ("HH:mm" or "now") string object
     # @return [String] Date in "HH:mm" string format
-    def format_time(time)
+    def format_time(time, opts = {})
+      format = opts[:include_timezone] ? "%H:%M%:z" : "%H:%M"
       if time.is_a? String
         case time
           when 'now'
-            return DateTime.now.strftime("%H:%M")
+            return DateTime.now.strftime format
           else
-            unless time =~ /\d{2}\:\d{2}/
+            unless time =~ /^\d{2}\:\d{2}$/
               raise Fitgem::InvalidTimeArgument, "Invalid time (#{time}), must be in HH:mm format"
             end
-            return time
+            timezone = DateTime.now.strftime("%:z")
+            return opts[:include_timezone] ? [ time, timezone ].join : time
         end
       elsif DateTime === time || Time === time
-        return time.strftime("%H:%M")
+        return time.strftime format
       else
         raise Fitgem::InvalidTimeArgument, "Date used must be a valid time object or a string in the format HH:mm; supplied argument is a #{time.class}"
       end
