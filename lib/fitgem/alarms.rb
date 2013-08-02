@@ -48,8 +48,7 @@ module Fitgem
     # @param [Integer, String] device_id The id of the device you would like to
     #   manage the alarm on
     # @param [Hash] opts Alarm settings
-    # @option opts [String] :time Time of the alarm in the format XX:XX+XX:XX, time
-    #   with timezone
+    # @option opts [DateTime, Time, String] :time Time of the alarm
     # @option opts [TrueClass, FalseClass] :enabled
     # @option opts [TrueClass, FalseClass] :recurring One time or recurring alarm
     # @option opts [String] :weekDays The days the alarm is active on as a list of
@@ -60,6 +59,7 @@ module Fitgem
     #
     # @return [Hash] Hash containing updated alarm settings
     def update_alarm(alarm_id, device_id, opts)
+      opts[:time] = format_time opts[:time], include_timezone: true
       post("/user/#{@user_id}/devices/tracker/#{device_id}/alarms/#{alarm_id}.json", opts)
     end
 
