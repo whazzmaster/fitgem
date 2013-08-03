@@ -3,6 +3,40 @@
 
 # fitgem changelog
 
+## v0.8.0
+
+#### 2013-08-03 Zachery Moneypenny <fitgem@whazzmaster.com>
+
+* Add support for weekly goals
+* Add support for silent alarms (including updates)
+* Add support for intraday distance
+* Add time zone support for usage of times
+* Add support for badges
+
+## v0.7.0
+
+#### 2013-05-17 Zachery Moneypenny <fitgem@whazzmaster.com>
+
+* Add support for intraday time series retrieval of various resources
+* Removed rvmrc from project- use whatever ruby you want!
+* Updated Travis CI configuration
+
+## v0.6.1
+
+#### 2013-02-28 Zachery Moneypenny <fitgem@whazzmaster.com>
+
+* More unit tests
+* Fix an issue where we weren't applying the `format_date` helper when constructing a date range fragment
+
+## v0.6.0
+
+* Streamline the README; add contributors link
+* Removed FAQs from README
+* Added support for daily activity goals
+* Moved testing-focused gemspec dependencies to the Gemfile
+
+#### 2013-02-13 Zachery Moneypenny <fitgem@whazzmaster.com>
+
 ## v0.5.2
 
 #### 2012-03-04 Zachery Moneypenny <fitgem@whazzmaster.com>
