@@ -84,24 +84,51 @@ describe Fitgem::Client do
   end
 
   describe "#format_time" do
-    it "accepts DateTime objects" do
-      time = DateTime.parse("3rd Feb 2001 04:05:06 PM")
-      @client.format_time(time).should == "16:05"
+    context "without a timezone" do
+      it "accepts DateTime objects" do
+        time = DateTime.parse("3rd Feb 2001 04:05:06 PM")
+        @client.format_time(time).should == "16:05"
+      end
+
+      it "accepts Time objects" do
+        time = Time.mktime 2012, 1, 20, 13, 33, 30
+        @client.format_time(time).should == "13:33"
+      end
+
+      it "accepts the string 'now' to denote the current localtime" do
+        now = DateTime.now
+        @client.format_time('now').should == now.strftime("%H:%M")
+      end
+
+      it "accepts strings in HH:mm format" do
+        time = "04:20"
+        @client.format_time(time).should == "04:20"
+      end
     end
 
-    it "accepts Time objects" do
-      time = Time.mktime 2012, 1, 20, 13, 33, 30
-      @client.format_time(time).should == "13:33"
-    end
+    context "with a timezone" do
+      it "accepts DateTime objects" do
+        time = DateTime.parse("3rd Feb 2001 04:05:06 PM UTC")
+        @client.format_time(time, include_timezone: true).should == "16:05+00:00"
+      end
 
-    it "accepts the string 'now' to denote the current localtime" do
-      now = DateTime.now
-      @client.format_time('now').should == now.strftime("%H:%M")
-    end
+      it "accepts Time objects" do
+        time = Time.new 2012, 1, 20, 13, 33, 30, "+00:00"
+        @client.format_time(time, include_timezone: true).should == "13:33+00:00"
+      end
 
-    it "accepts strings in HH:mm format" do
-      time = "04:20"
-      @client.format_time(time).should == "04:20"
+      it "accepts the string 'now' to denote the current localtime" do
+        now = DateTime.now
+        @client.format_time('now', include_timezone: true).should == now.strftime("%H:%M%:z")
+      end
+
+      it "accepts strings in HH:mm format" do
+        datetime = DateTime.parse("26th Apr 2000 09:27:00 +08:00")
+        DateTime.stub(:now).and_return datetime
+
+        time = "04:20"
+        @client.format_time(time, include_timezone: true).should == "04:20+08:00"
+      end
     end
 
     it "rejects Date objects" do
