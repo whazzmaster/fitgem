@@ -38,6 +38,7 @@ Gem::Specification.new do |s|
     'lib/fitgem/version.rb',
     'lib/fitgem/activities.rb',
     'lib/fitgem/alarms.rb',
+    'lib/fitgem/badges.rb',
     'lib/fitgem/body_measurements.rb',
     'lib/fitgem/client.rb',
     'lib/fitgem/devices.rb',

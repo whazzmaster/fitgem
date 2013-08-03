@@ -16,6 +16,7 @@ require 'fitgem/time_range'
 require 'fitgem/devices'
 require 'fitgem/notifications'
 require 'fitgem/alarms'
+require 'fitgem/badges'
 require 'date'
 require 'uri'
 
