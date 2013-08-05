@@ -16,7 +16,7 @@ module Fitgem
     #
     # @return [Hash] Friends' information
     def weekly_leaderboard
-      leaderboard('7d')
+      get("user/#{@user_id}/friends/leaderboard.json")
     end
 
     # Get the monthly leaderboard of friends' activities
