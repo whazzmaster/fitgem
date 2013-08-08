@@ -1,7 +1,7 @@
 module Fitgem
   class Client
     # ==========================================
-    #      Body Measurements Update Methods
+    #      Body Measurements Methods
     # ==========================================
 
     # Get the body measurements logged on a specified date
