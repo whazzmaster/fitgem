@@ -8,7 +8,7 @@ module Fitgem
     #
     # @param [DateTime, String] date The date to retrieve body
     #   measurements for.  May be a DateTime object or a String
-    #   in "yyyy-MM-dd" format.
+    #   in 'yyyy-MM-dd' format.
     # @return [Hash] A hash containing the logged body measurements
     #   along with any goals set for the current user.
     def body_measurements_on_date(date)
@@ -19,13 +19,15 @@ module Fitgem
     #
     # @params [Hash] opts body weight options
     # @option opts [Date] date The date in the format YYYY-mm-dd.
-    # @option opts [Date] base-date The end date when period is provided, in the
+    # @option opts [Date] base_date The end date when period is provided, in the
     #   format yyyy-MM-dd or today; range start date when a date range is provided.
     # @option opts [String] period The date range period. One of 1d, 7d, 30d, 1w, 1m
-    # @option opts [Date] end-date Range end date when date range is provided.
+    # @option opts [Date] end_date Range end date when date range is provided.
     #   Note that period should not be longer than 31 day
     #
     # @return [Hash] A hash containing body weight log entries
+    #
+    # @since v0.9.0
     def body_weight(opts = {})
       get determine_body_uri("/user/#{@user_id}/body/log/weight", opts)
     end
@@ -34,6 +36,8 @@ module Fitgem
     #
     # @return [Hash] A hash containing the start date,
     #   start weight and current weight.
+    #
+    # @since v0.9.0
     def body_weight_goal
       get("/user/#{@user_id}/body/log/weight/goal.json")
     end
@@ -42,13 +46,15 @@ module Fitgem
     #
     # @params [Hash] opts body fat options
     # @option opts [Date] date The date in the format YYYY-mm-dd.
-    # @option opts [Date] base-date The end date when period is provided, in the
+    # @option opts [Date] base_date The end date when period is provided, in the
     #   format yyyy-MM-dd or today; range start date when a date range is provided.
     # @option opts [String] period The date range period. One of 1d, 7d, 30d, 1w, 1m
-    # @option opts [Date] end-date Range end date when date range is provided.
+    # @option opts [Date] end_date Range end date when date range is provided.
     #   Note that period should not be longer than 31 day
     #
     # @return [Hash] A hash containing body fat log entries
+    #
+    # @since v0.9.0
     def body_fat(opts = {})
       get determine_body_uri("/user/#{@user_id}/body/log/fat", opts)
     end
@@ -56,6 +62,8 @@ module Fitgem
     # Retrieve the body fat goal of the current user
     #
     # @return [Hash] A hash containing the body fat goal
+    #
+    # @since v0.9.0
     def body_fat_goal
       get("/user/#{@user_id}/body/log/fat/goal.json")
     end
