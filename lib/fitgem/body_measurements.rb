@@ -65,5 +65,31 @@ module Fitgem
       opts[:date] = format_date(opts[:date]) if opts[:date]
       post("/user/#{@user_id}/body.json", opts)
     end
+
+    private
+
+    # Determine the URI for the body_weight or body_fat method
+    #
+    # @params [String] base_uri the base URI for the body weight or body fat method
+    # @params [Hash] opts body weight/fat options
+    # @option opts [Date] date The date in the format YYYY-mm-dd.
+    # @option opts [Date] base-date The end date when period is provided, in the
+    #   format yyyy-MM-dd or today; range start date when a date range is provided.
+    # @option opts [String] period The date range period. One of 1d, 7d, 30d, 1w, 1m
+    # @option opts [Date] end-date Range end date when date range is provided.
+    #   Note that period should not be longer than 31 day
+    #
+    # @return [String] an URI based on the base URI and provided options
+    def determine_body_uri(base_uri, opts = {})
+      if opts[:date]
+        date = format_date opts[:date]
+        "#{base_uri}/date/#{date}.json"
+      elsif opts[:base_date] && (opts[:period] || opts[:end_date])
+        date_range = construct_date_range_fragment opts
+        "#{base_uri}/#{date_range}.json"
+      else
+        raise Fitgem::InvalidArgumentError, "You didn't supply one of the required options."
+      end
+    end
   end
 end
