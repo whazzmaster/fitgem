@@ -29,6 +29,21 @@ module Fitgem
     def body_weight(opts = {})
       get determine_body_uri("/user/#{@user_id}/body/log/weight", opts)
     end
+
+    # Get a list of logged body fat entries for the specified period
+    #
+    # @params [Hash] opts body fat options
+    # @option opts [Date] date The date in the format YYYY-mm-dd.
+    # @option opts [Date] base-date The end date when period is provided, in the
+    #   format yyyy-MM-dd or today; range start date when a date range is provided.
+    # @option opts [String] period The date range period. One of 1d, 7d, 30d, 1w, 1m
+    # @option opts [Date] end-date Range end date when date range is provided.
+    #   Note that period should not be longer than 31 day
+    #
+    # @return [Hash] A hash containing body fat log entries
+    def body_fat(opts = {})
+      get determine_body_uri("/user/#{@user_id}/body/log/fat", opts)
+    end
     # ==========================================
     #      Body Measurements Update Methods
     # ==========================================
