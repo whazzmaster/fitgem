@@ -52,6 +52,14 @@ module Fitgem
     def body_fat(opts = {})
       get determine_body_uri("/user/#{@user_id}/body/log/fat", opts)
     end
+
+    # Retrieve the body fat goal of the current user
+    #
+    # @return [Hash] A hash containing the body fat goal
+    def body_fat_goal
+      get("/user/#{@user_id}/body/log/fat/goal.json")
+    end
+
     # ==========================================
     #      Body Measurements Update Methods
     # ==========================================
