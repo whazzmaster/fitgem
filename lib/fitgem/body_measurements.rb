@@ -77,13 +77,17 @@ module Fitgem
     # @param [Integer, String] weight The weight to log, as either
     #   an integer or a string in "X.XX'" format
     # @param [DateTime, String] date The date the weight should be
-    #   logged, as either a DateTime or a String in "yyyy-MM-dd" format
+    #   logged, as either a DateTime or a String in 'yyyy-MM-dd' format
+    #
+    # @options opts [DateTime, String] :time The time the weight should be logged
+    #   as either a DateTime or a String in 'HH:mm:ss' format
+    #
     # @return [Hash]
     #
-    # @deprecated {#log_body_measurements} should be used instead of
-    #   log_weight
-    def log_weight(weight, date, options={})
-      post("/user/#{@user_id}/body/weight.json", options.merge(:weight => weight, :date => format_date(date)))
+    # @since v0.9.0
+    def log_weight(weight, date, opts={})
+      opts[:time] = format_time(opts[:time]) if opts[:time]
+      post("/user/#{@user_id}/body/log/weight.json", opts.merge(:weight => weight, :date => format_date(date)))
     end
 
     # Log body measurements to fitbit for the current user
