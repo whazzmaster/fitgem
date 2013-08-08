@@ -30,6 +30,14 @@ module Fitgem
       get determine_body_uri("/user/#{@user_id}/body/log/weight", opts)
     end
 
+    # Retrieve the body weight goal of the current user
+    #
+    # @return [Hash] A hash containing the start date,
+    #   start weight and current weight.
+    def body_weight_goal
+      get("/user/#{@user_id}/body/log/weight/goal.json")
+    end
+
     # Get a list of logged body fat entries for the specified period
     #
     # @params [Hash] opts body fat options
