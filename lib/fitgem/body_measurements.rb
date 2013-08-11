@@ -180,6 +180,15 @@ module Fitgem
       delete("/user/#{@user_id}/body/log/weight/#{logId}.json")
     end
 
+    # Delete user's body fat log entry with the given id
+    #
+    # @param [Integer] logId The id of the body fat entry
+    #
+    # @since v0.9.0
+    def delete_body_fat_log(logId)
+      delete("/user/#{@user_id}/body/log/fat/#{logId}.json")
+    end
+
     private
 
     # Determine the URI for the body_weight or body_fat method
