@@ -156,6 +156,17 @@ module Fitgem
       post("/user/#{@user_id}/body/log/weight/goal.json", opts)
     end
 
+    # Create or update a user's body fat percentage goal
+    #
+    # @param [Decimal, Integer, String] fatPercentageGoal Target body fat in %;
+    #   in the format "X.XX" if a string
+    #
+    # @since v0.9.0
+    def create_or_update_body_fat_goal(fatPercentageGoal)
+      opts = {fat: fatPercentageGoal}
+      post("/user/#{@user_id}/body/log/fat/goal.json", opts)
+    end
+
     private
 
     # Determine the URI for the body_weight or body_fat method
