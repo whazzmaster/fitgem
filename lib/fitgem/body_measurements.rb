@@ -141,6 +141,21 @@ module Fitgem
       post("/user/#{@user_id}/body/fat.json", opts)
     end
 
+    # Create or update a user's weight goal
+    #
+    # @param [DateTime, Date, String] startDate Weight goal start date;
+    #   in the format "yyyy-MM-dd" if a string
+    # @param [Decimal, Integer, String] startWeight Weight goal start weight;
+    #   in the format "X.XX" if a string
+    # @param [Decimal, Integer, String] goalWeight Weight goal target weight;
+    #   in the format "X.XX" if a string
+    #
+    # @since v0.9.0
+    def create_or_update_body_weight_goal(startDate, startWeight, goalWeight)
+      opts = {startDate: format_date(startDate), startWeight: startWeight, weight: goalWeight}
+      post("/user/#{@user_id}/body/log/weight/goal.json", opts)
+    end
+
     private
 
     # Determine the URI for the body_weight or body_fat method
