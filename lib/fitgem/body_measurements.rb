@@ -72,24 +72,6 @@ module Fitgem
     #      Body Measurements Update Methods
     # ==========================================
 
-    # Log weight to fitbit for the current user
-    #
-    # @param [Integer, String] weight The weight to log, as either
-    #   an integer or a string in "X.XX'" format
-    # @param [DateTime, String] date The date the weight should be
-    #   logged, as either a DateTime or a String in 'yyyy-MM-dd' format
-    #
-    # @options opts [DateTime, String] :time The time the weight should be logged
-    #   as either a DateTime or a String in 'HH:mm:ss' format
-    #
-    # @return [Hash]
-    #
-    # @since v0.9.0
-    def log_weight(weight, date, opts={})
-      opts[:time] = format_time(opts[:time]) if opts[:time]
-      post("/user/#{@user_id}/body/log/weight.json", opts.merge(:weight => weight, :date => format_date(date)))
-    end
-
     # Log body measurements to fitbit for the current user
     #
     # At least ONE measurement item is REQUIRED in the call, as well as the
@@ -121,6 +103,42 @@ module Fitgem
       # Update the date (if exists)
       opts[:date] = format_date(opts[:date]) if opts[:date]
       post("/user/#{@user_id}/body.json", opts)
+    end
+
+    # Log weight to fitbit for the current user
+    #
+    # @param [Integer, String] weight The weight to log, as either
+    #   an integer or a string in "X.XX'" format
+    # @param [DateTime, String] date The date the weight should be
+    #   logged, as either a DateTime or a String in 'yyyy-MM-dd' format
+    #
+    # @options opts [DateTime, String] :time The time the weight should be logged
+    #   as either a DateTime or a String in 'HH:mm:ss' format
+    #
+    # @return [Hash]
+    #
+    # @since v0.9.0
+    def log_weight(weight, date, opts={})
+      opts[:time] = format_time(opts[:time]) if opts[:time]
+      post("/user/#{@user_id}/body/log/weight.json", opts.merge(:weight => weight, :date => format_date(date)))
+    end
+
+    # Log body fat percentage
+    #
+    # @param [Decimal, Integer, String] fatPercentage Body fat percentage to log,
+    #   in format "X.XX" if a string
+    # @param [DateTime, Date, String] date The date to log body fat percentage on,
+    #   in format "yyyy-MM-dd" if a string
+    # @param [Hash] opts
+    # @option opts [DateTime, Time, String] :time The time to log body fat percentage
+    #   at, in " HH:mm:ss" format if a String
+    #
+    # @since v0.9.0
+    def log_body_fat(fatPercentage, date, opts={})
+      opts[:fat] = fatPercentage
+      opts[:date] = format_date(date)
+      opts[:time] = format_time(opts[:time]) if opts[:time]
+      post("/user/#{@user_id}/body/fat.json", opts)
     end
 
     private
