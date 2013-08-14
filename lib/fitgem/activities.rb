@@ -25,21 +25,21 @@ module Fitgem
     # Get a list of the frequently logged activities
     #
     # @return [Array] list of frequently logged activities
-    def frequent_activities()
+    def frequent_activities
       get("/user/#{@user_id}/activities/frequent.json")
     end
 
     # Get a list of recently logged activities
     #
     # @return [Array] list of of recently-logged activities
-    def recent_activities()
+    def recent_activities
       get("/user/#{@user_id}/activities/recent.json")
     end
 
     # Get a list of activities marked as favorite by the user
     #
     # @return [Array] list of user-defined favorite activities
-    def favorite_activities()
+    def favorite_activities
       get("/user/#{@user_id}/activities/favorite.json")
     end
 
@@ -58,23 +58,40 @@ module Fitgem
     # Get the activity statistics for the current user
     #
     # @return [Hash] Hash containing statistics for the activities that
-    # the user has logged
+    #   the user has logged
     def activity_statistics
       get("/user/#{@user_id}/activities.json")
     end
 
+    # ==========================================
+    #         Goal Retrieval Methods
+    # ==========================================
+
     # Get the daily activity goals for the current user
     #
-    # @return [Hash] Hash containing the calorie, distance, floors, and 
-    # step goals for the current user
+    # @return [Hash] Hash containing the calorie, distance, floors, and
+    #   step goals for the current user
+    #
+    # @deprecated Use the daily_goals method; in v1.0.0 this method will
+    #   be removed
     def goals
       get("/user/#{@user_id}/activities/goals/daily.json")
+    end
+
+    # Get the daily activity goals for the current user
+    #
+    # @return [Hash] Hash containing the calorie, distance, floors, and
+    #   step goals for the current user
+    #
+    # @since v0.9.0
+    def daily_goals
+      goals
     end
 
     # Get the weekly activity goals for the current user
     #
     # @return [Hash] Hash containing the distance, floors and step goals
-    # for the current user
+    #   for the current user
     def weekly_goals
       get("/user/#{@user_id}/activities/goals/weekly.json")
     end
@@ -88,25 +105,26 @@ module Fitgem
     # @param [Hash] opts The options used to log the activity for the
     #   current user
     #
-    # @option opts [String] :activityId The id of the activity, directory activity or intensity 
-    #   level activity. See activity types at {http://wiki.fitbit.com/display/API/API-Log-Activity} for more 
+    # @option opts [String] :activityId The id of the activity, directory
+    #   activity or intensity level activity. See activity types at
+    #   {http://wiki.fitbit.com/display/API/API-Log-Activity} for more
     #   information. This value OR activityName is REQUIRED for all calls.
-    # @option opts [String] :activityName The name of the activity to log.  This value OR activityId 
-    #   is REQUIRED for alls.
-    #
+    # @option opts [String] :activityName The name of the activity to log.
+    #   This value OR activityId is REQUIRED for alls.
     # @option opts [String, Integer] :durationMillis Activity duration in milliseconds.
     #   Must be a numeric value in Integer or String format. This value is REQUIRED for all calls.
     # @option opts [String] :startTime Activity start time, in the format "HH:mm" using hours
     #   and seconds. This value is REQUIRED for all calls.
-    # @option opts [String] :date Activity date, in "yyyy-MM-dd" format. This value is REQUIRED for all calls.
-    #
-    # @option opts [String] :distance Distance traveled, a string in the format "X.XX".  This value is 
+    # @option opts [String] :date Activity date, in "yyyy-MM-dd" format. This
+    #   value is REQUIRED for all calls.
+    # @option opts [String] :distance Distance traveled, a string in the format "X.XX".  This value is
     #   REQUIRED when logging a directory activity, OPTIONAL otherwise.
-    # @option opts [String, Integer] :manualCalories The number of calories to log against the activity. This
-    #   value is REQUIRED if using the activityName, OPTIONAL otherwise.
-    #
-    # @option opts [String] :distanceUnit One of {Fitgem::ApiDistanceUnit}. The "steps" units are available 
-    #   only for "Walking" and "Running" directory activities and their intensity levels
+    # @option opts [String, Integer] :manualCalories The number of calories
+    #   to log against the activity. This value is REQUIRED if using the activityName,
+    #   OPTIONAL otherwise.
+    # @option opts [String] :distanceUnit One of {Fitgem::ApiDistanceUnit}.
+    #   The "steps" units are available only for "Walking" and "Running"
+    #   directory activities and their intensity levels
     #
     # @return [Hash] A hash with a summary of the logged activity
     def log_activity(opts)
@@ -119,6 +137,7 @@ module Fitgem
     #   typcially retrieved by browsing or searching the list of all
     #   available activities.  Must be a numerical ID in either Integer
     #   or String format.
+    #
     # @return [Hash] Empty hash if successfully marked as a favorite
     def add_favorite_activity(activity_id)
       post("/user/#{@user_id}/activities/log/favorite/#{activity_id}.json")
