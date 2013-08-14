@@ -17,7 +17,7 @@ module Fitgem
     #
     # @return [Array] A list of foods, each of which is a Hash
     #   containing the food details
-    def recent_foods()
+    def recent_foods
       get("/user/#{@user_id}/foods/log/recent.json")
     end
 
@@ -25,7 +25,7 @@ module Fitgem
     #
     # @return [Array] A list of foods, each of which is a Hash
     #   containing the food details
-    def frequent_foods()
+    def frequent_foods
       get("/user/#{@user_id}/foods/log/frequent.json")
     end
 
@@ -33,15 +33,24 @@ module Fitgem
     #
     # @return [Array] A list of foods, each of which is a Hash
     #   containing the food details
-    def favorite_foods()
+    def favorite_foods
       get("/user/#{@user_id}/foods/log/favorite.json")
     end
 
     # Get a list of all of the available food units
     #
     # @return [Array] List of food units
-    def foods_units()
-      get("/foods/units.json")
+    def foods_units
+      get('/foods/units.json')
+    end
+
+    # Get a hash containing the user's meal informarion
+    #
+    # @return [Hash] Meal information
+    #
+    # @since v0.9.0
+    def meals
+      get("/user/#{@user_id}/meals.json")
     end
 
     # ==========================================
@@ -77,7 +86,7 @@ module Fitgem
     # @option opts [Integer, String] :foodId Food id
     # @option opts [String] :foodName Food entry name
     # @option opts [String] :brandName Brand name, valid only with foodName
-    # @option opts [Integer, String] :calories Calories for this serving size, 
+    # @option opts [Integer, String] :calories Calories for this serving size,
     #   valid only with foodName
     # @option opts [Integer, String] :mealTypeId Meal type id; (1 -
     #   Breakfast, 2 - Morning Snack, 3 - Lunch, 4 - Afternoon Snack, 5 - Dinner, 7 - Anytime)
