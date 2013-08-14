@@ -144,6 +144,32 @@ module Fitgem
     end
 
     # ==========================================
+    #       Goal Creation/Update Methods
+    # ==========================================
+
+    # Create or update a user's daily goal
+    #
+    # @param [Hash] :opts
+    #
+    # @option opts [Symbol] :type The type of goal to create or update; must be one of
+    #   :steps, :distance, :floors, or :caloriesOut. REQUIRED
+    # @option opts [Decimal, Integer, String] :value The goal value; in the format 'X.XX'
+    #   if a string. REQUIRED
+    #
+    # @since v0.9.0
+    def create_or_update_daily_goal(opts)
+      unless opts[:type] && [:steps, :distance, :floors, :caloriesOut].include?(opts[:type])
+        raise InvalidArgumentError, 'Must specify type in order to create or update a daily goal. One of (:steps, :distance, :floors, or :caloriesOut) is required.'
+      end
+
+      unless opts[:value]
+        raise InvalidArgumentError, 'Must specify value of the daily goal to be created or updated.'
+      end
+
+      post("/user/#{@user_id}/activities/goals/daily.json", opts)
+    end
+
+    # ==========================================
     #         Activity Removal Methods
     # ==========================================
 

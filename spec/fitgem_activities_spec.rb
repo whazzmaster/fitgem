@@ -8,6 +8,38 @@ describe Fitgem::Client do
     })
   end
 
+  describe '#create_or_update_daily_goal' do
+    before(:each) do
+      @opts = {type: :steps, value: '10000'}
+    end
+
+    it 'raises an exception if the :type value is missing' do
+      @opts.delete :type
+      expect {
+        @client.create_or_update_daily_goal @opts
+      }.to raise_error(Fitgem::InvalidArgumentError)
+    end
+
+    it 'raises an exception if the :type value is not valid' do
+      @opts[:type] = :milesWalked
+      expect {
+        @client.create_or_update_daily_goal @opts
+      }.to raise_error(Fitgem::InvalidArgumentError)
+    end
+
+    it 'raises an exception if the :value value is missing' do
+      @opts.delete :value
+      expect {
+        @client.create_or_update_daily_goal @opts
+      }.to raise_error(Fitgem::InvalidArgumentError)
+    end
+
+    it 'posts to the correct URI if the :type and :value are valid' do
+      @client.should_receive(:post).with('/user/-/activities/goals/daily.json', @opts)
+      @client.create_or_update_daily_goal @opts
+    end
+  end
+
   describe '#intraday_time_series' do
     before(:each) do
       @date_opts = {
@@ -40,7 +72,7 @@ describe Fitgem::Client do
       [:calories, :steps, :distance, :floors, :elevation].each do |resource|
         opts = { resource: resource, date: '2013-05-13', detailLevel: '15min' }
         expect{
-          @client.intraday_time_series(opts)          
+          @client.intraday_time_series(opts)
         }.not_to raise_error
       end
     end
