@@ -23,7 +23,7 @@ module Fitgem
     #
     # @return [Hash] Friends' information
     def monthly_leaderboard
-      leaderboard('30d')
+      raise DeprecatedApiError, 'Fitbit no longer exposes a monthly leaderboard. See https://wiki.fitbit.com/display/API/API-Get-Friends-Leaderboard for more information.'
     end
 
     # ==========================================
