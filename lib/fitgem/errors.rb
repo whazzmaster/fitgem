@@ -22,4 +22,7 @@ module Fitgem
 
   class ConnectionRequiredError < Exception
   end
+
+  class DeprecatedApiError < Exception
+  end
 end

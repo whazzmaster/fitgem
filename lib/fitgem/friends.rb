@@ -16,14 +16,14 @@ module Fitgem
     #
     # @return [Hash] Friends' information
     def weekly_leaderboard
-      leaderboard('7d')
+      get("/user/#{@user_id}/friends/leaderboard.json")
     end
 
     # Get the monthly leaderboard of friends' activities
     #
     # @return [Hash] Friends' information
     def monthly_leaderboard
-      leaderboard('30d')
+      raise DeprecatedApiError, 'Fitbit no longer exposes a monthly leaderboard. See https://wiki.fitbit.com/display/API/API-Get-Friends-Leaderboard for more information.'
     end
 
     # ==========================================
