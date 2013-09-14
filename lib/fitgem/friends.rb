@@ -12,10 +12,10 @@ module Fitgem
       get("/user/#{@user_id}/friends.json")
     end
 
-    # Get the weekly leaderboard of friends' activities
+    # Get the leaderboard of friends' weekly activities
     #
     # @return [Hash] Friends' information
-    def weekly_leaderboard
+    def leaderboard
       get("/user/#{@user_id}/friends/leaderboard.json")
     end
 
