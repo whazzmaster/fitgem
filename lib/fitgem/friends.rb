@@ -16,14 +16,7 @@ module Fitgem
     #
     # @return [Hash] Friends' information
     def weekly_leaderboard
-      leaderboard('7d')
-    end
-
-    # Get the monthly leaderboard of friends' activities
-    #
-    # @return [Hash] Friends' information
-    def monthly_leaderboard
-      leaderboard('30d')
+      get("/user/#{@user_id}/friends/leaderboard.json")
     end
 
     # ==========================================
@@ -69,10 +62,6 @@ module Fitgem
     end
 
     private
-
-    def leaderboard(range)
-      get("/user/#{@user_id}/friends/leaders/#{range}.json")
-    end
 
     def respond_to_invite(requestor_id, does_accept)
       options = { :accept => does_accept.to_s }
