@@ -8,3 +8,5 @@ test*.rb
 .fitgem.yml
 .idea
 .rvmrc
+.ruby-version
+.ruby-gemset
