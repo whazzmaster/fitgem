@@ -22,8 +22,8 @@ require 'uri'
 
 module Fitgem
   class Client
-    API_VERSION = "1"
-    EMPTY_BODY = ""
+    API_VERSION = '1'
+    EMPTY_BODY = ''
 
     # Sets or gets the api_version to be used in API calls
     #"
@@ -103,7 +103,7 @@ module Fitgem
       @secret = opts[:secret]
 
       @proxy = opts[:proxy] if opts[:proxy]
-      @user_id = opts[:user_id] || "-"
+      @user_id = opts[:user_id] || '-'
 
       @api_unit_system = opts[:unit_system] || Fitgem::ApiUnitSystem.US
       @api_version = API_VERSION
@@ -195,7 +195,7 @@ module Fitgem
       end
 
       def raw_get(path, headers={})
-        headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
+        headers.merge!('User-Agent' => "fitgem gem v#{Fitgem::VERSION}", 'Accept-Language' => @api_unit_system)
         uri = "/#{@api_version}#{path}"
         access_token.get(uri, headers)
       end
@@ -205,7 +205,7 @@ module Fitgem
       end
 
       def raw_post(path, body='', headers={})
-        headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
+        headers.merge!('User-Agent' => "fitgem gem v#{Fitgem::VERSION}", 'Accept-Language' => @api_unit_system)
         uri = "/#{@api_version}#{path}"
         access_token.post(uri, body, headers)
       end
@@ -215,7 +215,7 @@ module Fitgem
       end
 
       def raw_delete(path, headers={})
-        headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
+        headers.merge!('User-Agent' => "fitgem gem v#{Fitgem::VERSION}", 'Accept-Language' => @api_unit_system)
         uri = "/#{@api_version}#{path}"
         access_token.delete(uri, headers)
       end
