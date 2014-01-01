@@ -22,6 +22,16 @@ module Fitgem
       get("/user/#{@user_id}/activities/date/#{format_date(date)}.json")
     end
 
+    # Get activity information for a date range
+    #
+    # @param [String] activity to retrieve information for
+    # @param [Datetime] start of date range
+    # @param [Datetime] end of date range
+    # @return [Hash] activity information for the given date range
+    def activity_on_date_range(activity, start, finish)
+      get("/user/#{@user_id}/activities/#{activity}/date/#{format_date(start)}/#{format_date(finish)}.json")
+    end
+
     # Get a list of the frequently logged activities
     #
     # @return [Array] list of frequently logged activities
