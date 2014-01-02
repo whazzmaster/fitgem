@@ -39,7 +39,7 @@ The reference app is written using Rails 3.2 and [Backbone.js](http://backbonejs
 * Store and use OAuth access tokens
 * Create and use instances of `Fitgem::Client` using the stored OAuth access token
 
-## Contributng to Fitgem
+## Contributing to Fitgem
 
 The Fitbit REST API is in BETA right now, and so it will quite likely change over time.  I aim to keep as up-to-date as I can but if you absolutely need functionality that isn't included here, **feel free to fork and implement it, then send me a pull request**.
 
