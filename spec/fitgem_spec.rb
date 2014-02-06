@@ -32,5 +32,33 @@ describe Fitgem do
     it 'should default to a user id of \'-\', the currently-logged in user' do
       @client.user_id.should == '-'
     end
+    
+    it "returns the protocol to be used" do
+      @client.protocol.should eq "http"
+    end
+    
+    describe "ssl" do
+      it "should expose the ssl setting" do
+        @client.ssl.should eq nil
+      end
+      
+      context "when true" do
+        let(:client) { Fitgem::Client.new({
+            :consumer_key => '12345', 
+            :consumer_secret => '67890',
+            :ssl => true
+          }) }
+          
+        it "can set the ssl setting to true" do
+          client.ssl.should be_true
+        end
+        
+        it "uses https protocol" do
+          client.protocol.should eq "https"
+        end
+        
+      end
+      
+    end
   end
 end
