@@ -1,6 +1,6 @@
 # Fitgem [![Build Status](https://secure.travis-ci.org/whazzmaster/fitgem.png)](http://travis-ci.org/whazzmaster/fitgem)
 
-This gem provides access to [fitbit.com](http://www.fitbit.com) data through [their REST API](http://dev.fitbit.com).  Fitgem can pull data with or without user authentication. Without user authentication you can only gather data that a user has denoted as 'public'.  If you log in via OAuth then all exposed data can be gathered for the logged-in account.
+This gem provides access to [fitbit.com](http://www.fitbit.com) data through [their REST API](http://dev.fitbit.com).  Fitgem can pull data with or without a valid OAUth access_token. Without an access_token you can only gather data that a user has denoted as 'public'.  However, if an access_token is provided then all exposed data can be gathered for the logged-in account.
 
 The [Fitbit API](https://wiki.fitbit.com/display/API/Fitbit+API) is currently in BETA and is under development to extend its reach. As the API evolves and is enhanced it's a priority to mirror the functionality in the gem, and **pull requests** are appreciated if you see gaps in API support.
 
