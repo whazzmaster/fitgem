@@ -30,6 +30,11 @@ module Fitgem
     # @return [String]
     attr_accessor :api_version
 
+    # Sets or gets the ssl settings
+    # 
+    # @return [Boolean]
+    attr_accessor :ssl
+    
     # Sets or gets the api unit system to be used in API calls
     #
     # @return [String]
@@ -98,6 +103,7 @@ module Fitgem
       @consumer_key = opts[:consumer_key]
       @consumer_secret = opts[:consumer_secret]
 
+      @ssl = opts[:ssl]
 
       @token = opts[:token]
       @secret = opts[:secret]
@@ -176,12 +182,19 @@ module Fitgem
       consumer.options[:authorize_path] = '/oauth/authenticate'
       request_token(opts)
     end
+    
+    # The protocol to be used for the API requests
+    # 
+    # @return [String], 'http', or 'https' if ssl == true
+    def protocol
+      ssl ? "https" : "http"
+    end
 
     private
 
       def consumer
         @consumer ||= OAuth::Consumer.new(@consumer_key, @consumer_secret, {
-          :site => 'http://api.fitbit.com',
+          :site => "#{protocol}://api.fitbit.com",
           :proxy => @proxy
         })
       end
