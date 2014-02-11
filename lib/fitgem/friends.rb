@@ -19,6 +19,26 @@ module Fitgem
       get("/user/#{@user_id}/friends/leaderboard.json")
     end
 
+    # Get the leaderboard of friends' weekly activities
+    #
+    # @return [Hash] Friends' information
+    #
+    # @deprecated Monthly leaderboards are no longer available from Fitbit. Please update to use {#leaderboard}
+    def monthly_leaderboard
+      warn '[DEPRECATED] monthly_leaderboard will be removed in v1.0. Update to using leaderboard method.'
+      leaderboard
+    end
+
+    # Get the leaderboard of friends' weekly activities
+    #
+    # @return [Hash] Friends' information
+    #
+    # @deprecated Please update to use {#leaderboard}
+    def weekly_leaderboard
+      warn '[DEPRECATED] weekly_leaderboard will be removed in v1.0. Update to using leaderboard method.'
+      leaderboard
+    end
+
     # ==========================================
     #       Invitation Management Methods
     # ==========================================
