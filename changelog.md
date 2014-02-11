@@ -3,6 +3,35 @@
 
 # fitgem changelog
 
+## v0.9.0
+
+#### 2014-02-11 Zachery Moneypenny <fitgem@whazzmaster.com>
+
+The v0.9.0 release adds a number of new methods to match new functionality available through the Fitbit REST API. It
+also removes support for concepts (monthly leaderboards) that have been removed from the Fitbit REST API.
+
+There's a big change to **leaderboard support** in this update; please read the notes below if you're currently using
+`monthly_leaderboard` or `weekly_leaderboard` -- you should update your code to use the new method before v1.0 is
+released.
+
+* Add ability to target SSL Fitbit REST endpoints
+* Add `activity_on_date_range` method
+* Condense existing `weekly_leaderboard` and (no longer available) `monthly_leaderboard` into a simple `leaderboard`
+method. There is now only one leaderboard (weekly) so no need to differentiate in the API. The previous leaderboard
+methods are now deprecated and **will be removed** in v1.0.
+* Add `create_or_update_weekly_goal` method and specs
+* Add `create_or_update_daily_goal` method and specs
+* Add `daily_goals` method and update documentation
+* Add `delete_body_fat_log` method
+* Add `delete_body_weight_log` method
+* Add `create_or_update_body_fat_goal` method
+* Add `create_or_update_body_weight_goal` method
+* Add `log_body_fat` method to push a body fat measurement to Fitbit
+* Add `body_fat_goal` method to fetch the current body fat goal
+* Add `body_fat` method to fetch body fat measurements
+* Add `body_weight` method to fetch body fat measurements
+* For the `body_weight` and `body_fat` methods, determine a URI based on the base URI and provided options
+
 ## v0.8.0
 
 #### 2013-08-03 Zachery Moneypenny <fitgem@whazzmaster.com>
