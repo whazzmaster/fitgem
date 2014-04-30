@@ -16,7 +16,7 @@ module Fitgem
 
     # Creates a notification subscription
     #
-    # @note You must check the HTTP response code to check the status of the request to add a subscription.  See {https://wiki.fitbit.com/display/API/Subscriptions-API} for information about what the codes mean.
+    # @note You must check the HTTP response code to check the status of the request to add a subscription.  See {https://wiki.fitbit.com/display/API/Fitbit+Subscriptions+API} for information about what the codes mean.
     #
     # @param [Hash] opts The notification subscription data
     # @option opts [Symbol] :type The type of subscription (valid
@@ -33,7 +33,7 @@ module Fitgem
 
     # Removes a notification subscription
     #
-    # @note You must check the HTTP response code to check the status of the request to remove a subscription.  See {https://wiki.fitbit.com/display/API/Subscriptions-API} for information about what the codes mean.
+    # @note You must check the HTTP response code to check the status of the request to remove a subscription.  See {https://wiki.fitbit.com/display/API/Fitbit+Subscriptions+API} for information about what the codes mean.
     #
     # @param [Hash] opts The notification subscription data
     # @option opts [Symbol] :type The type of subscription to remove;
