@@ -101,6 +101,7 @@ describe Fitgem::Client do
     end
 
     it 'valid resources should not raise an error' do
+      allow(@client).to receive(:raw_get)
       [:calories, :steps, :distance, :floors, :elevation].each do |resource|
         opts = { resource: resource, date: '2013-05-13', detailLevel: '15min' }
         expect{
