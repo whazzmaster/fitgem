@@ -35,7 +35,7 @@ describe Fitgem::Client do
     end
 
     it 'posts to the correct URI if the :type and :value are valid' do
-      @client.should_receive(:post).with('/user/-/activities/goals/daily.json', @opts)
+      expect(@client).to receive(:post).with('/user/-/activities/goals/daily.json', @opts)
       @client.create_or_update_daily_goal @opts
     end
   end
@@ -67,7 +67,7 @@ describe Fitgem::Client do
     end
 
     it 'posts to the correct URI if the :type and :value are valid' do
-      @client.should_receive(:post).with('/user/-/activities/goals/weekly.json', @opts)
+      expect(@client).to receive(:post).with('/user/-/activities/goals/weekly.json', @opts)
       @client.create_or_update_weekly_goal @opts
     end
   end
@@ -158,12 +158,12 @@ describe Fitgem::Client do
     end
 
     it 'constructs the correct time-based url' do
-      @client.should_receive(:get).with('/user/-/activities/calories/date/2013-05-13/1d/15min/time/10:00/13:00.json', {})
+      expect(@client).to receive(:get).with('/user/-/activities/calories/date/2013-05-13/1d/15min/time/10:00/13:00.json', {})
       @client.intraday_time_series(@time_opts)
     end
 
     it 'constructs the correct date-based url' do
-      @client.should_receive(:get).with('/user/-/activities/calories/date/2013-05-13/1d/1min.json', {})
+      expect(@client).to receive(:get).with('/user/-/activities/calories/date/2013-05-13/1d/1min.json', {})
       @client.intraday_time_series(@date_opts)
     end
   end

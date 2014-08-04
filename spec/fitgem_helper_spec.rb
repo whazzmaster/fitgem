@@ -11,12 +11,12 @@ describe Fitgem::Client do
   describe "#construct_date_range_fragment" do
     it 'should format the correct URI fragment based on a base date and end date' do
       frag = @client.construct_date_range_fragment({:base_date => '2011-03-07', :end_date => '2011-03-14'})
-      frag.should == 'date/2011-03-07/2011-03-14'
+      expect(frag).to eq 'date/2011-03-07/2011-03-14'
     end
 
     it 'should format the correct URI fragment based on a base date and period' do
       frag = @client.construct_date_range_fragment({:base_date => '2011-03-07', :period => '7d'})
-      frag.should == 'date/2011-03-07/7d'
+      expect(frag).to eq 'date/2011-03-07/7d'
     end
 
     it 'should raise an error unless there is a base date AND either a period or an end date' do
@@ -37,28 +37,28 @@ describe Fitgem::Client do
       span_start = DateTime.new(1997, 4, 18, 9, 30, 30)
       span_end = DateTime.new(1999, 10, 3, 15, 30, 30)
       frag = @client.construct_date_range_fragment base_date: span_start, end_date: span_end
-      frag.should eq('date/1997-04-18/1999-10-03')
+      expect(frag).to eq 'date/1997-04-18/1999-10-03'
     end
   end
 
   describe "#format_date" do
     it "accepts DateTime objects" do
       date = DateTime.strptime('2011-03-19','%Y-%m-%d')
-      @client.format_date(date).should == '2011-03-19'
+      expect(@client.format_date(date)).to eq '2011-03-19'
     end
 
     it "accepts strings in YYYY-MM-DD format" do
-      @client.format_date('2011-03-19').should == '2011-03-19'
+      expect(@client.format_date('2011-03-19')).to eq '2011-03-19'
     end
 
     it "accepts the string 'today' to denote the current date" do
       today = Date.today.strftime("%Y-%m-%d")
-      @client.format_date('today').should == today
+      expect(@client.format_date('today')).to eq today
     end
 
     it "accepts the string 'yesterday' to denote the day previous to today" do
       yesterday = (Date.today-1).strftime("%Y-%m-%d")
-      @client.format_date('yesterday').should == yesterday
+      expect(@client.format_date('yesterday')).to eq yesterday
     end
 
     it "rejects strings that are not in YYY-MM-DD format" do
@@ -87,47 +87,47 @@ describe Fitgem::Client do
     context "without a timezone" do
       it "accepts DateTime objects" do
         time = DateTime.parse("3rd Feb 2001 04:05:06 PM")
-        @client.format_time(time).should == "16:05"
+        expect(@client.format_time(time)).to eq "16:05"
       end
 
       it "accepts Time objects" do
         time = Time.mktime 2012, 1, 20, 13, 33, 30
-        @client.format_time(time).should == "13:33"
+        expect(@client.format_time(time)).to eq "13:33"
       end
 
       it "accepts the string 'now' to denote the current localtime" do
         now = DateTime.now
-        @client.format_time('now').should == now.strftime("%H:%M")
+        expect(@client.format_time('now')).to eq now.strftime("%H:%M")
       end
 
       it "accepts strings in HH:mm format" do
         time = "04:20"
-        @client.format_time(time).should == "04:20"
+        expect(@client.format_time(time)).to eq "04:20"
       end
     end
 
     context "with a timezone" do
       it "accepts DateTime objects" do
         time = DateTime.parse("3rd Feb 2001 04:05:06 PM UTC")
-        @client.format_time(time, include_timezone: true).should == "16:05+00:00"
+        expect(@client.format_time(time, include_timezone: true)).to eq "16:05+00:00"
       end
 
       it "accepts Time objects" do
         time = Time.new 2012, 1, 20, 13, 33, 30, "+00:00"
-        @client.format_time(time, include_timezone: true).should == "13:33+00:00"
+        expect(@client.format_time(time, include_timezone: true)).to eq "13:33+00:00"
       end
 
       it "accepts the string 'now' to denote the current localtime" do
         now = DateTime.now
-        @client.format_time('now', include_timezone: true).should == now.strftime("%H:%M%:z")
+        expect(@client.format_time('now', include_timezone: true)).to eq now.strftime("%H:%M%:z")
       end
 
       it "accepts strings in HH:mm format" do
         datetime = DateTime.parse("26th Apr 2000 09:27:00 +08:00")
-        DateTime.stub(:now).and_return datetime
+        allow(DateTime).to receive(:now).and_return datetime
 
         time = "04:20"
-        @client.format_time(time, include_timezone: true).should == "04:20+08:00"
+        expect(@client.format_time(time, include_timezone: true)).to eq "04:20+08:00"
       end
     end
 
@@ -195,49 +195,49 @@ describe Fitgem::Client do
 
     it "returns the correct values when the unit system is Fitgem::ApiUnitSystem.US" do
       @client.api_unit_system = Fitgem::ApiUnitSystem.US
-      @client.label_for_measurement(:duration, false).should == "milliseconds"
-      @client.label_for_measurement(:distance, false).should == "miles"
-      @client.label_for_measurement(:elevation, false).should == "feet"
-      @client.label_for_measurement(:height, false).should == "inches"
-      @client.label_for_measurement(:weight, false).should == "pounds"
-      @client.label_for_measurement(:measurements, false).should == "inches"
-      @client.label_for_measurement(:liquids, false).should == "fl oz"
-      @client.label_for_measurement(:blood_glucose, false).should == "mg/dL"
+      expect(@client.label_for_measurement(:duration, false)).to eq "milliseconds"
+      expect(@client.label_for_measurement(:distance, false)).to eq "miles"
+      expect(@client.label_for_measurement(:elevation, false)).to eq "feet"
+      expect(@client.label_for_measurement(:height, false)).to eq "inches"
+      expect(@client.label_for_measurement(:weight, false)).to eq "pounds"
+      expect(@client.label_for_measurement(:measurements, false)).to eq "inches"
+      expect(@client.label_for_measurement(:liquids, false)).to eq "fl oz"
+      expect(@client.label_for_measurement(:blood_glucose, false)).to eq "mg/dL"
     end
 
     it "returns the correct values when the unit system is Fitgem::ApiUnitSystem.UK" do
       @client.api_unit_system = Fitgem::ApiUnitSystem.UK
-      @client.label_for_measurement(:duration, false).should == "milliseconds"
-      @client.label_for_measurement(:distance, false).should == "kilometers"
-      @client.label_for_measurement(:elevation, false).should == "meters"
-      @client.label_for_measurement(:height, false).should == "centimeters"
-      @client.label_for_measurement(:weight, false).should == "stone"
-      @client.label_for_measurement(:measurements, false).should == "centimeters"
-      @client.label_for_measurement(:liquids, false).should == "mL"
-      @client.label_for_measurement(:blood_glucose, false).should == "mmol/l"
+      expect(@client.label_for_measurement(:duration, false)).to eq "milliseconds"
+      expect(@client.label_for_measurement(:distance, false)).to eq "kilometers"
+      expect(@client.label_for_measurement(:elevation, false)).to eq "meters"
+      expect(@client.label_for_measurement(:height, false)).to eq "centimeters"
+      expect(@client.label_for_measurement(:weight, false)).to eq "stone"
+      expect(@client.label_for_measurement(:measurements, false)).to eq "centimeters"
+      expect(@client.label_for_measurement(:liquids, false)).to eq "mL"
+      expect(@client.label_for_measurement(:blood_glucose, false)).to eq "mmol/l"
     end
 
     it "returns the correct values when the unit system is Fitgem::ApiUnitSystem.METRIC" do
       @client.api_unit_system = Fitgem::ApiUnitSystem.METRIC
-      @client.label_for_measurement(:duration, false).should == "milliseconds"
-      @client.label_for_measurement(:distance, false).should == "kilometers"
-      @client.label_for_measurement(:elevation, false).should == "meters"
-      @client.label_for_measurement(:height, false).should == "centimeters"
-      @client.label_for_measurement(:weight, false).should == "kilograms"
-      @client.label_for_measurement(:measurements, false).should == "centimeters"
-      @client.label_for_measurement(:liquids, false).should == "mL"
-      @client.label_for_measurement(:blood_glucose, false).should == "mmol/l"
+      expect(@client.label_for_measurement(:duration, false)).to eq "milliseconds"
+      expect(@client.label_for_measurement(:distance, false)).to eq "kilometers"
+      expect(@client.label_for_measurement(:elevation, false)).to eq "meters"
+      expect(@client.label_for_measurement(:height, false)).to eq "centimeters"
+      expect(@client.label_for_measurement(:weight, false)).to eq "kilograms"
+      expect(@client.label_for_measurement(:measurements, false)).to eq "centimeters"
+      expect(@client.label_for_measurement(:liquids, false)).to eq "mL"
+      expect(@client.label_for_measurement(:blood_glucose, false)).to eq "mmol/l"
     end
 
     context "when respecting the user's unit measurement preferences" do
       before(:each) do
-        @client.stub(:connected?).and_return(true)
-        @client.stub(:user_info).and_return({"user" => {"distanceUnit"=>"en_GB", "glucoseUnit"=>"en_GB", "heightUnit"=>"en_GB", "waterUnit"=>"METRIC", "weightUnit"=>"en_GB"}})
+        allow(@client).to receive(:connected?).and_return(true)
+        allow(@client).to receive(:user_info).and_return({"user" => {"distanceUnit"=>"en_GB", "glucoseUnit"=>"en_GB", "heightUnit"=>"en_GB", "waterUnit"=>"METRIC", "weightUnit"=>"en_GB"}})
       end
 
       it "returns the correct overridden measurement label" do
         @client.api_unit_system = Fitgem::ApiUnitSystem.US
-        @client.label_for_measurement(:distance).should == "kilometers"
+        expect(@client.label_for_measurement(:distance)).to eq "kilometers"
       end
     end
   end
