@@ -3,6 +3,14 @@
 
 # fitgem changelog
 
+## v0.10.0
+
+#### 2014-08-08 Zachery Moneypenny <fitgem@whazzmaster.com>
+
+* Updates default test framework to RSpec 3
+* Updates library to use SSL exclusively when hitting the Fitbit REST API. Fitbit is restricting access to its API via https only on November 3rd, 2014. See [issue #30](https://github.com/whazzmaster/fitgem/issues/30) for more information. This should be transparent to end users of fitgem, as the library simply ignores the :ssl option in the Client constructor and defaults to https everywhere.
+* The previously-deprecated `weekly_leaderboard` and `monthly_leaderboard` methods have now been updated to throw a `DeprecatedApiError` rather than warning about deprecation. These methods will be removed in v1.0.
+
 ## v0.9.0
 
 #### 2014-02-11 Zachery Moneypenny <fitgem@whazzmaster.com>
