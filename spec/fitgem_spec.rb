@@ -32,33 +32,5 @@ describe Fitgem do
     it 'should default to a user id of \'-\', the currently-logged in user' do
       expect(@client.user_id).to eq '-'
     end
-
-    it "returns the protocol to be used" do
-      expect(@client.protocol).to eq "http"
-    end
-
-    describe "ssl" do
-      it "should expose the ssl setting" do
-        expect(@client.ssl).to be_nil
-      end
-
-      context "when true" do
-        let(:client) { Fitgem::Client.new({
-            :consumer_key => '12345',
-            :consumer_secret => '67890',
-            :ssl => true
-          }) }
-
-        it "can set the ssl setting to true" do
-          expect(client.ssl).to eq true
-        end
-
-        it "uses https protocol" do
-          expect(client.protocol).to eq "https"
-        end
-
-      end
-
-    end
   end
 end
