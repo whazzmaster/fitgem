@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "oauth"
   s.add_development_dependency "rake"
-  s.add_development_dependency "rspec"
+  s.add_development_dependency "rspec",     '~> 3.0.0'
   s.add_development_dependency "yard"
   s.add_development_dependency "rdiscount"
 
