@@ -25,8 +25,7 @@ module Fitgem
     #
     # @deprecated Monthly leaderboards are no longer available from Fitbit. Please update to use {#leaderboard}
     def monthly_leaderboard
-      warn '[DEPRECATED] monthly_leaderboard will be removed in v1.0. Update to using leaderboard method.'
-      leaderboard
+      raise DeprecatedApiError, 'Fitbit no longer exposes a monthly leaderboard. See https://wiki.fitbit.com/display/API/API-Get-Friends-Leaderboard for more information. Use #leaderboard() instead.'
     end
 
     # Get the leaderboard of friends' weekly activities
@@ -35,8 +34,7 @@ module Fitgem
     #
     # @deprecated Please update to use {#leaderboard}
     def weekly_leaderboard
-      warn '[DEPRECATED] weekly_leaderboard will be removed in v1.0. Update to using leaderboard method.'
-      leaderboard
+      raise DeprecatedApiError, 'Fitbit now only exposes a weekly leaderboard, Use #leaderboard() instead.'
     end
 
     # ==========================================
