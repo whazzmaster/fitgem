@@ -20,7 +20,7 @@ gem 'fitgem'
 
 ## API Reference
 
-Comprehensive method documentation is [available online](http://www.rubydoc.info/github/whazzmaster/fitgem/frames).
+Comprehensive method documentation is [available online](http://www.rubydoc.info/gems/fitbit/0.2.0/frames).
 
 The best way to connect your users to the Fitbit API is to use
 [omniauth-fitbit](https://github.com/tkgospodinov/omniauth-fitbit) to integrate Fitbit accounts into your web application. Once you have a Fitbit API OAuth `access_token` for a user it's simple to create a client object through fitgem to send and receive fitness data.
