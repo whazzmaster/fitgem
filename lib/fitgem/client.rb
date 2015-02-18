@@ -146,6 +146,7 @@ module Fitgem
     #   needed to make API calls, since it is stored internally.  It is
     #   returned so that you may make general OAuth calls if need be.
     def reconnect(token, secret)
+      @access_token = nil
       @token = token
       @secret = secret
       access_token
