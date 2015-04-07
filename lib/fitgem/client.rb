@@ -220,8 +220,12 @@ module Fitgem
         access_token.delete(uri, headers)
       end
 
-      def extract_response_body(resp)
-        resp.nil? || resp.body.nil? ? {} : JSON.parse(resp.body)
+      def extract_response_body(response)
+        return {} if response.nil?
+
+        raise ServiceUnavailableError if response.code == '503'
+
+        response.body.nil? ? {} : JSON.parse(response.body)
       end
   end
 end
