@@ -25,4 +25,7 @@ module Fitgem
 
   class DeprecatedApiError < Exception
   end
+
+  class ServiceUnavailableError < Exception
+  end
 end
