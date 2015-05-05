@@ -17,6 +17,7 @@ require 'fitgem/devices'
 require 'fitgem/notifications'
 require 'fitgem/alarms'
 require 'fitgem/badges'
+require 'fitgem/locales'
 require 'date'
 require 'uri'
 
@@ -45,6 +46,23 @@ module Fitgem
     #     :unit_system => Fitgem::ApiUnitSystem.METRIC
     #   }
     attr_accessor :api_unit_system
+
+    # Sets or gets the api locale to be used in API calls
+    #
+    # @return [String]
+    #
+    # @example Set this using the {Fitgem::ApiLocale}
+    #   client.api_locale = Fitgem::ApiLocale.UK
+    # @example May also be set in the constructor call
+    #   client = Fitgem::Client {
+    #     :consumer_key => my_key,
+    #     :consumer_secret => my_secret,
+    #     :token => fitbit_oauth_token,
+    #     :secret => fitbit_oauth_secret,
+    #     :unit_system => Fitgem::ApiUnitSystem.METRIC,
+    #     :locale => Fitgem::ApiLocale.JP
+    #   }
+    attr_accessor :api_locale
 
     # Sets or gets the user id to be used in API calls
     #
@@ -76,6 +94,9 @@ module Fitgem
     # @option opts [Symbol] :unit_system The unit system to use for API
     #   calls; use {Fitgem::ApiUnitSystem} to set during initialization.
     #   DEFAULT: {Fitgem::ApiUnitSystem.US}
+    # @option opts [Symbol] :locale The locale to use for API calls;
+    #   use {Fitgem::ApiLocale} to set during initialization.
+    #   DEFAULT: {Fitgem::ApiLocale.US}
     #
     # @example User has not yet authorized with fitbit
     #   client = Fitgem::Client.new { :consumer_key => my_key, :consumer_secret => my_secret }
@@ -106,6 +127,7 @@ module Fitgem
 
       @api_unit_system = opts[:unit_system] || Fitgem::ApiUnitSystem.US
       @api_version = API_VERSION
+      @api_locale = opts[:locale] || Fitgem::ApiLocale.US
     end
 
     # Finalize authentication and retrieve an oauth access token
@@ -195,7 +217,8 @@ module Fitgem
       end
 
       def raw_get(path, headers={})
-        headers.merge!('User-Agent' => "fitgem gem v#{Fitgem::VERSION}", 'Accept-Language' => @api_unit_system)
+        headers.merge!('User-Agent' => "fitgem gem v#{Fitgem::VERSION}", 'Accept-Language' => @api_unit_system,
+                       'Accept-Locale' => @api_locale)
         uri = "/#{@api_version}#{path}"
         access_token.get(uri, headers)
       end
@@ -205,7 +228,8 @@ module Fitgem
       end
 
       def raw_post(path, body='', headers={})
-        headers.merge!('User-Agent' => "fitgem gem v#{Fitgem::VERSION}", 'Accept-Language' => @api_unit_system)
+        headers.merge!('User-Agent' => "fitgem gem v#{Fitgem::VERSION}", 'Accept-Language' => @api_unit_system,
+                       'Accept-Locale' => @api_locale)
         uri = "/#{@api_version}#{path}"
         access_token.post(uri, body, headers)
       end
@@ -215,7 +239,8 @@ module Fitgem
       end
 
       def raw_delete(path, headers={})
-        headers.merge!('User-Agent' => "fitgem gem v#{Fitgem::VERSION}", 'Accept-Language' => @api_unit_system)
+        headers.merge!('User-Agent' => "fitgem gem v#{Fitgem::VERSION}", 'Accept-Language' => @api_unit_system,
+                       'Accept-Locale' => @api_locale)
         uri = "/#{@api_version}#{path}"
         access_token.delete(uri, headers)
       end
