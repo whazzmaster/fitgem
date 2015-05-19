@@ -182,6 +182,7 @@ module Fitgem
       def consumer
         @consumer ||= OAuth::Consumer.new(@consumer_key, @consumer_secret, {
           :site => 'https://api.fitbit.com',
+          :authorize_url => 'https://www.fitbit.com/oauth/authorize',
           :proxy => @proxy
         })
       end

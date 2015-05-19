@@ -7,8 +7,13 @@ RSpec.describe Fitgem::Client do
     :consumer_secret => '67890'
   }) }
   let(:response)     { double :body => {:foo => :bar}.to_json, :code => 200 }
+  let(:consumer)     { double 'Consumer' }
 
   before :each do
+    allow(OAuth::Consumer).to receive(:new).with('12345', '67890',
+                                {:site          => "https://api.fitbit.com",
+                                 :authorize_url => "https://www.fitbit.com/oauth/authorize",
+                                 :proxy         => nil}).and_return(consumer)
     allow(OAuth::AccessToken).to receive(:new).and_return(access_token)
   end
 
