@@ -22,52 +22,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'yard'
   s.add_development_dependency 'rdiscount'
 
-  s.files         = [
-    '.gitignore',
-    # '.rvmrc',
-    '.yardopts',
-    '.travis.yml',
-    'Gemfile',
-    'Guardfile',
-    'LICENSE',
-    'README.md',
-    'Rakefile',
-    'changelog.md',
-    'fitgem.gemspec',
-    'lib/fitgem.rb',
-    'lib/fitgem/version.rb',
-    'lib/fitgem/activities.rb',
-    'lib/fitgem/alarms.rb',
-    'lib/fitgem/badges.rb',
-    'lib/fitgem/body_measurements.rb',
-    'lib/fitgem/client.rb',
-    'lib/fitgem/devices.rb',
-    'lib/fitgem/errors.rb',
-    'lib/fitgem/food_form.rb',
-    'lib/fitgem/foods.rb',
-    'lib/fitgem/friends.rb',
-    'lib/fitgem/helpers.rb',
-    'lib/fitgem/notifications.rb',
-    'lib/fitgem/sleep.rb',
-    'lib/fitgem/time_range.rb',
-    'lib/fitgem/units.rb',
-    'lib/fitgem/users.rb',
-    'lib/fitgem/water.rb',
-    'lib/fitgem/blood_pressure.rb',
-    'lib/fitgem/glucose.rb',
-    'lib/fitgem/heart_rate.rb',
-    'spec/fitgem_spec.rb',
-    'spec/spec_helper.rb',
-    'spec/fitgem_notifications_spec.rb',
-    'spec/fitgem_helper_spec.rb',
-    'spec/fitgem_constructor_spec.rb'
-  ]
-  s.test_files   = [
-    'spec/fitgem_spec.rb',
-    'spec/spec_helper.rb',
-    'spec/fitgem_notifications_spec.rb',
-    'spec/fitgem_helper_spec.rb',
-    'spec/fitgem_constructor_spec.rb'
-  ]
+  s.files = %w(LICENSE README.md fitgem.gemspec) + `git ls-files -z`.split("\x0").select { |f| f.start_with?("lib/") }
   s.require_paths = ['lib']
 end
