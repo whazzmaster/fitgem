@@ -28,7 +28,7 @@ module Fitgem
     # @since v0.4.0
     def create_subscription(opts)
       resp = raw_post make_subscription_url(opts.merge({:use_subscription_id => true})), EMPTY_BODY, make_headers(opts)
-      [resp.code, extract_response_body(resp)]
+      [resp.code, extract_response_body_and_headers(resp)]
     end
 
     # Removes a notification subscription
@@ -49,7 +49,7 @@ module Fitgem
     # @since v0.4.0
     def remove_subscription(opts)
       resp = raw_delete make_subscription_url(opts.merge({:use_subscription_id => true})), make_headers(opts)
-      [resp.code, extract_response_body(resp)]
+      [resp.code, extract_response_body_and_headers(resp)]
     end
 
     protected

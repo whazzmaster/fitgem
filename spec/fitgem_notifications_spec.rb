@@ -50,7 +50,7 @@ describe Fitgem::Client do
 
     it "calls #extract_response_body to get the JSON body" do
       opts = { :subscriber_id => "5555", :type => :all, :subscription_id => "320", :use_subscription_id => true }
-      expect(@client).to receive(:extract_response_body)
+      expect(@client).to receive(:extract_response_body_and_headers)
       @client.create_subscription(opts)
     end
 
@@ -81,7 +81,7 @@ describe Fitgem::Client do
 
     it "calls #extract_response_body to get the JSON body" do
       opts = { :subscriber_id => "5555", :type => :all, :subscription_id => "320", :use_subscription_id => true }
-      expect(@client).to receive(:extract_response_body)
+      expect(@client).to receive(:extract_response_body_and_headers)
       @client.remove_subscription(opts)
     end
 

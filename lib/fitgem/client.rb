@@ -214,7 +214,7 @@ module Fitgem
       end
 
       def get(path, headers={})
-        extract_response_body raw_get(path, headers)
+        extract_response_body_and_headers raw_get(path, headers)
       end
 
       def raw_get(path, headers={})
@@ -225,7 +225,7 @@ module Fitgem
       end
 
       def post(path, body='', headers={})
-        extract_response_body raw_post(path, body, headers)
+        extract_response_body_and_headers raw_post(path, body, headers)
       end
 
       def raw_post(path, body='', headers={})
@@ -236,7 +236,7 @@ module Fitgem
       end
 
       def delete(path, headers={})
-        extract_response_body raw_delete(path, headers)
+        extract_response_body_and_headers raw_delete(path, headers)
       end
 
       def raw_delete(path, headers={})
@@ -246,6 +246,12 @@ module Fitgem
         access_token.delete(uri, headers)
       end
 
+      def extract_response_body_and_headers(response)
+        body = extract_response_body(response)
+        headers = extract_response_headers(response)
+        body.merge('http_headers' => headers)
+      end
+
       def extract_response_body(response)
         return {} if response.nil?
 
@@ -253,5 +259,15 @@ module Fitgem
 
         response.body.nil? ? {} : JSON.parse(response.body)
       end
+
+     def extract_response_headers(resp)
+       result = {}
+
+       if !resp.nil?
+         resp.each_header { |key, value| result[key] = value }
+       end
+
+       result
+     end
   end
 end

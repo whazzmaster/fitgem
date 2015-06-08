@@ -6,7 +6,11 @@ RSpec.describe Fitgem::Client do
     :consumer_key => '12345',
     :consumer_secret => '67890'
   }) }
-  let(:response)     { double :body => {:foo => :bar}.to_json, :code => 200 }
+  let(:response)     {
+    double :body => {:foo => :bar}.to_json,
+           :code => 200,
+           :headers => {'header_name_1' => 'header_value_1'}
+  }
   let(:consumer)     { double 'Consumer' }
 
   before :each do
@@ -15,10 +19,17 @@ RSpec.describe Fitgem::Client do
                                  :authorize_url => "https://www.fitbit.com/oauth/authorize",
                                  :proxy         => nil}).and_return(consumer)
     allow(OAuth::AccessToken).to receive(:new).and_return(access_token)
+
+    allow(client).to receive(:extract_response_headers).with(response).
+                       and_return(response.headers)
   end
 
-  it 'returns JSON from the request' do
-    expect(client.user_info).to eq({'foo' => 'bar'})
+  it 'returns JSON body and headers from the request' do
+    expected_result = {
+      'foo' => 'bar',
+      'http_headers' => { 'header_name_1' => 'header_value_1' }
+    }
+    expect(client.user_info).to eq(expected_result)
   end
 
   it 'raises a service unavailable exception when the status is 503' do
