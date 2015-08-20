@@ -29,7 +29,7 @@ module Fitgem
     #
     # @since v0.9.0
     def body_weight(opts = {})
-      get determine_body_uri("/user/#{@user_id}/body/log/weight", opts)
+      get uri_with_date_range("/user/#{@user_id}/body/log/weight", opts)
     end
 
     # Retrieve the body weight goal of the current user
@@ -56,7 +56,7 @@ module Fitgem
     #
     # @since v0.9.0
     def body_fat(opts = {})
-      get determine_body_uri("/user/#{@user_id}/body/log/fat", opts)
+      get uri_with_date_range("/user/#{@user_id}/body/log/fat", opts)
     end
 
     # Retrieve the body fat goal of the current user
@@ -187,32 +187,6 @@ module Fitgem
     # @since v0.9.0
     def delete_body_fat_log(logId)
       delete("/user/#{@user_id}/body/log/fat/#{logId}.json")
-    end
-
-    private
-
-    # Determine the URI for the body_weight or body_fat method
-    #
-    # @params [String] base_uri the base URI for the body weight or body fat method
-    # @params [Hash] opts body weight/fat options
-    # @option opts [Date] date The date in the format YYYY-mm-dd.
-    # @option opts [Date] base-date The end date when period is provided, in the
-    #   format yyyy-MM-dd or today; range start date when a date range is provided.
-    # @option opts [String] period The date range period. One of 1d, 7d, 30d, 1w, 1m
-    # @option opts [Date] end-date Range end date when date range is provided.
-    #   Note that period should not be longer than 31 day
-    #
-    # @return [String] an URI based on the base URI and provided options
-    def determine_body_uri(base_uri, opts = {})
-      if opts[:date]
-        date = format_date opts[:date]
-        "#{base_uri}/date/#{date}.json"
-      elsif opts[:base_date] && (opts[:period] || opts[:end_date])
-        date_range = construct_date_range_fragment opts
-        "#{base_uri}/#{date_range}.json"
-      else
-        raise Fitgem::InvalidArgumentError, "You didn't supply one of the required options."
-      end
     end
   end
 end

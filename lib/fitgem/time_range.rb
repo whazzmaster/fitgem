@@ -82,5 +82,28 @@ module Fitgem
       range_str
     end
 
+    # Determine the URI for the methods accepting a date range (body weight, body fat, heart rate etc.)
+    #
+    # @params [String] base_uri the base URI for the method
+    # @params [Hash] opts date range options
+    # @option opts [Date] date The date in the format YYYY-mm-dd.
+    # @option opts [Date] base-date The end date when period is provided, in the
+    #   format yyyy-MM-dd or today; range start date when a date range is provided.
+    # @option opts [String] period The date range period. One of 1d, 7d, 30d, 1w, 1m
+    # @option opts [Date] end-date Range end date when date range is provided.
+
+    #
+    # @return [String] an URI based on the base URI and provided options
+    def uri_with_date_range(base_uri, opts = {})
+      if opts[:date]
+        date = format_date opts[:date]
+        "#{base_uri}/date/#{date}.json"
+      elsif opts[:base_date] && (opts[:period] || opts[:end_date])
+        date_range = construct_date_range_fragment opts
+        "#{base_uri}/#{date_range}.json"
+      else
+        raise Fitgem::InvalidArgumentError, "You didn't supply one of the required options."
+      end
+    end
   end
 end

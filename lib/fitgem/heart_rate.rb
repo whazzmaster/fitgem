@@ -13,6 +13,21 @@ module Fitgem
       get("/user/#{@user_id}/heart/date/#{format_date(date)}.json")
     end
 
+    # Get a list of heart rate entries for the specified period
+    #
+    # @params [Hash] opts heart rate options
+    # @option opts [Date] base_date The end date when period is provided, in the
+    #   format yyyy-MM-dd or today; range start date when a date range is provided.
+    # @option opts [String] period The date range period. One of 1d, 7d, 30d, 1w, 1m
+    # @option opts [Date] end_date Range end date when date range is provided.
+    #
+    # @return [Hash] A hash containing heart rate entries
+    def heart_rate(opts = {})
+      date_range_opts = opts.dup
+      date_range_opts.delete(:date)
+      get uri_with_date_range("/user/#{@user_id}/activities/heart", date_range_opts)
+    end
+
     # ==========================================
     #        Heart Rate Logging Methods
     # ==========================================
@@ -29,7 +44,7 @@ module Fitgem
     # @return [Hash] Summary of logged information
     def log_heart_rate(opts)
       unless opts[:tracker] && opts[:heart_rate] && opts[:date]
-        raise Fitgem::InvalidArgumentError, "Must include :tracker, :heart_rate, and :date in order to lof heart rate data"
+        raise Fitgem::InvalidArgumentError, "Must include :tracker, :heart_rate, and :date in order to log heart rate data"
       end
 
       opts[:heartRate] = opts.delete :heart_rate
