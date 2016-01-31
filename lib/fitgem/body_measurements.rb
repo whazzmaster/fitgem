@@ -138,7 +138,7 @@ module Fitgem
       opts[:fat] = fatPercentage
       opts[:date] = format_date(date)
       opts[:time] = format_time(opts[:time]) if opts[:time]
-      post("/user/#{@user_id}/body/fat.json", opts)
+      post("/user/#{@user_id}/body/log/fat.json", opts)
     end
 
     # Create or update a user's weight goal
