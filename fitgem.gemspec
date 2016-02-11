@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = 'fitgem'
 
-  s.add_dependency 'oauth'
+  s.add_dependency 'oauth2'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec',     '~> 3.0.0'
   s.add_development_dependency 'yard'

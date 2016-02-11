@@ -56,7 +56,7 @@ describe Fitgem::Client do
 
     it "returns the code and the JSON body in an array" do
       opts = { :subscriber_id => "5555", :type => :all, :subscription_id => "320", :use_subscription_id => true }
-      expect(@resp).to receive(:code).twice
+      expect(@resp).to receive(:status).twice
       expect(@client.create_subscription(opts)).to be_a(Array)
     end
   end
@@ -87,7 +87,7 @@ describe Fitgem::Client do
 
     it "returns the code and the JSON body in an array" do
       opts = { :subscriber_id => "5555", :type => :all, :subscription_id => "320", :use_subscription_id => true }
-      expect(@resp).to receive(:code).twice
+      expect(@resp).to receive(:status).twice
       expect(@client.remove_subscription(opts)).to be_a(Array)
     end
   end
