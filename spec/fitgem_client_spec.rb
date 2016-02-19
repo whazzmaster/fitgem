@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe Fitgem::Client do
-  let(:access_token) { double 'Access Token', :get => response }
+  let(:access_token) {
+    double 'Access Token', :get => response, :request => response
+  }
   let(:client)       { Fitgem::Client.new({
     :consumer_key => '12345',
     :consumer_secret => '67890'

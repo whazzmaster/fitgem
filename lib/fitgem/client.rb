@@ -138,9 +138,7 @@ module Fitgem
       end
 
       def raw_get(path, headers={})
-        headers.merge! default_headers
-        uri = "/#{@api_version}#{path}"
-        access_token.get(uri, headers)
+        request(:get, path, headers: headers)
       end
 
       def post(path, body='', headers={})
@@ -148,9 +146,7 @@ module Fitgem
       end
 
       def raw_post(path, body='', headers={})
-        headers.merge! default_headers
-        uri = "/#{@api_version}#{path}"
-        access_token.post(uri, body, headers)
+        request(:post, path, body: body, headers: headers)
       end
 
       def delete(path, headers={})
@@ -158,9 +154,14 @@ module Fitgem
       end
 
       def raw_delete(path, headers={})
-        headers.merge! default_headers
-        uri = "/#{@api_version}#{path}"
-        access_token.delete(uri, headers)
+        request(:delete, path, headers: headers)
+      end
+
+      def request(verb, path, opts)
+        versioned_path = "/#{@api_version}#{path}"
+        opts.fetch(:headers) { {} }.merge! default_headers
+
+        access_token.request(verb, versioned_path, opts)
       end
 
       def extract_response_body(response)
