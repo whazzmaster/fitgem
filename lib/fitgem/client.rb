@@ -169,7 +169,10 @@ module Fitgem
 
         raise ServiceUnavailableError if response.status == 503
 
-        response.body.nil? ? {} : JSON.parse(response.body)
+        return {} if response.body.nil?
+        return {} if response.body.empty?
+
+        JSON.parse(response.body)
       end
 
       def default_headers

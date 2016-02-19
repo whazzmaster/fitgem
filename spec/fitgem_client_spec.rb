@@ -29,4 +29,13 @@ RSpec.describe Fitgem::Client do
 
     expect { client.user_info }.to raise_error(Fitgem::ServiceUnavailableError)
   end
+
+  context "response with an blank body" do
+    let(:response) { double :body => "", :status => 200 }
+
+    it "is properly parsed" do
+      blank_user_info = client.user_info
+      expect(blank_user_info).to eq({})
+    end
+  end
 end
