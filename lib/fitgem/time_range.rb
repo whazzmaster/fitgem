@@ -1,7 +1,7 @@
 module Fitgem
   class Client
-    # Gets historical resource data in the time range specified by 
-    # options hash param.  The time range can either be specified by 
+    # Gets historical resource data in the time range specified by
+    # options hash param.  The time range can either be specified by
     # :base_date and :end_date OR by using :base_date and a :period
     # (supported periods are 1d, 7d, 30d, 1w, 1m, 3m, 6m, 1y, max)
     #
@@ -10,7 +10,7 @@ module Fitgem
     # Food:
     #   /foods/log/caloriesIn
     #   /foods/log/water
-    # 
+    #
     # Activity:
     #   /activities/log/calories
     #   /activities/log/steps
@@ -41,7 +41,7 @@ module Fitgem
     #   /sleep/minutesToFallAsleep
     #   /sleep/minutesAfterWakeup
     #   /sleep/efficiency
-    # 
+    #
     # Body:
     #   /body/weight
     #   /body/bmi
@@ -82,5 +82,16 @@ module Fitgem
       range_str
     end
 
+    def uri_with_date_range(base_uri, opts = {})
+      if opts[:date]
+        date = format_date opts[:date]
+        "#{base_uri}/date/#{date}.json"
+      elsif opts[:base_date] && (opts[:period] || opts[:end_date])
+        date_range = construct_date_range_fragment opts
+        "#{base_uri}/#{date_range}.json"
+      else
+        raise Fitgem::InvalidArgumentError, "You didn't supply one of the required options."
+      end
+    end
   end
 end
