@@ -13,6 +13,10 @@ module Fitgem
       get("/user/#{@user_id}/heart/date/#{format_date(date)}.json")
     end
 
+    def heart_rate_range(opts = {})
+      get uri_with_date_range("/user/#{@user_id}/activities/heart", opts.delete(:date))
+    end
+
     # ==========================================
     #        Heart Rate Logging Methods
     # ==========================================
