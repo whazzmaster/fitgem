@@ -134,8 +134,19 @@ module Fitgem
     # @param [String] Redirect URI
     # @return [OAuth2::AccessToken] Accesstoken and refresh token
     def get_token(authorization_code, redirect_uri)
-      encode = Base64.encode64("#{@consumer_key}:#{@consumer_secret}")
-      consumer.auth_code.get_token(authorization_code, headers: {Authorization: "Basic #{encode}"}, redirect_uri: redirect_uri)
+      consumer.auth_code.get_token(authorization_code, headers: auth_header, redirect_uri: redirect_uri)
+    end
+
+    # Refresh access token
+    #
+    # @param [String] Refresh token
+    # @return [OAuth2::AccessToken] Accesstoken and refresh token
+    def refresh_access_token!(refresh_token)
+      new_access_token = OAuth2::AccessToken.new(consumer, @token, refresh_token: refresh_token)
+      new_access_token.refresh!(headers: auth_header)
+      @token = new_access_token.token
+      @access_token = nil
+      access_token
     end
 
     private
@@ -200,6 +211,10 @@ module Fitgem
           'Accept-Language' => @api_unit_system,
           'Accept-Locale' => @api_locale
         }
+      end
+
+      def auth_header
+        {Authorization: "Basic #{ Base64.encode64("#{ @consumer_key }:#{ @consumer_secret }") }" }
       end
   end
 end
