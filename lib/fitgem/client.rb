@@ -119,6 +119,37 @@ module Fitgem
       @api_locale = opts[:locale] || Fitgem::ApiLocale.US
     end
 
+    # Get authorize_url
+    #
+    # @param [String] Space separated access scope (i.e. 'activity nutrition')
+    # @param [String] Redirect URI
+    # @return [String] Authorize URL
+    def authorize_url(scope, redirect_uri)
+      consumer.auth_code.authorize_url(redirect_uri: redirect_uri, scope: scope)
+    end
+
+    # Get token
+    #
+    # @param [String] Authorization code
+    # @param [String] Redirect URI
+    # @return [OAuth2::AccessToken] Accesstoken and refresh token
+    def get_token(authorization_code, redirect_uri)
+      consumer.auth_code.get_token(authorization_code, headers: auth_header, redirect_uri: redirect_uri)
+    end
+
+    # Refresh access token
+    #
+    # @param [String] Refresh token
+    # @return [OAuth2::AccessToken] Accesstoken and refresh token
+    def refresh_access_token!(refresh_token)
+      new_access_token = OAuth2::AccessToken.new(consumer, @token, refresh_token: refresh_token)
+      # refresh! method return new object not itself and not change itself
+      new_token = new_access_token.refresh!(headers: auth_header)
+      @token = new_token.token
+      @access_token = nil
+      new_token
+    end
+
     private
 
       def consumer
@@ -181,6 +212,10 @@ module Fitgem
           'Accept-Language' => @api_unit_system,
           'Accept-Locale' => @api_locale
         }
+      end
+
+      def auth_header
+        {Authorization: "Basic #{ Base64.encode64("#{ @consumer_key }:#{ @consumer_secret }") }" }
       end
   end
 end
