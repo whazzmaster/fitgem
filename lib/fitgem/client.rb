@@ -143,10 +143,11 @@ module Fitgem
     # @return [OAuth2::AccessToken] Accesstoken and refresh token
     def refresh_access_token!(refresh_token)
       new_access_token = OAuth2::AccessToken.new(consumer, @token, refresh_token: refresh_token)
-      new_access_token.refresh!(headers: auth_header)
-      @token = new_access_token.token
+      # refresh! method return new object not itself and not change itself
+      new_token = new_access_token.refresh!(headers: auth_header)
+      @token = new_token.token
       @access_token = nil
-      access_token
+      new_token
     end
 
     private
