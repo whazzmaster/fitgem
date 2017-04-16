@@ -86,6 +86,12 @@ describe Fitgem::Client do
           startTime: '10:00',
           endTime: '13:00'
       }
+      @date_range_opts = {
+          resource: :calories,
+          detailLevel: '15min',
+          start_date: '2013-05-13',
+          end_date: '2014-05-13'
+      }
     end
 
     it 'raises an exception if the resource is missing' do
@@ -113,6 +119,12 @@ describe Fitgem::Client do
     it 'raises an exception if the date is missing' do
       expect {
         @client.intraday_time_series(@date_opts.merge!(date: nil))
+      }.to raise_error(Fitgem::InvalidArgumentError)
+    end
+
+    it 'raises an exception if the date is missing and either start_date or end_date is missing' do
+      expect {
+        @client.intraday_time_series(@date_range_opts.merge!(start_date: nil))
       }.to raise_error(Fitgem::InvalidArgumentError)
     end
 
@@ -146,6 +158,30 @@ describe Fitgem::Client do
       }.to raise_error(Fitgem::InvalidArgumentError)
     end
 
+    it 'raises an exception if only the start date is supplied' do
+      expect {
+        @client.intraday_time_series(@date_range_opts.merge!(end_date: nil))
+      }.to raise_error(Fitgem::InvalidArgumentError)
+    end
+
+    it 'raises an exception if only the end date is supplied' do
+      expect {
+        @client.intraday_time_series(@date_range_opts.merge!(start_date: nil))
+      }.to raise_error(Fitgem::InvalidArgumentError)
+    end
+
+    it 'raises an exception if the end date is invalid' do
+      expect {
+        @client.intraday_time_series(@date_range_opts.merge!(end_date: 'what-is-this-nonsense'))
+      }.to raise_error(Fitgem::InvalidArgumentError)
+    end
+
+    it 'raises an exception if the start date is invalid' do
+      expect {
+        @client.intraday_time_series(@date_range_opts.merge!(start_date: 'what-is-this-nonsense'))
+      }.to raise_error(Fitgem::InvalidArgumentError)
+    end
+
     it 'raises an exception if the start time is invalid' do
       expect {
         @client.intraday_time_series(@time_opts.merge!(startTime: 'what-is-this-nonsense'))
@@ -166,6 +202,11 @@ describe Fitgem::Client do
     it 'constructs the correct date-based url' do
       expect(@client).to receive(:get).with('/user/-/activities/calories/date/2013-05-13/1d/1min.json', {})
       @client.intraday_time_series(@date_opts)
+    end
+
+    it 'constructs the correct date-range-based url' do
+      expect(@client).to receive(:get).with('/user/-/activities/calories/date/2013-05-13/2014-05-13.json', {})
+      @client.intraday_time_series(@date_range_opts)
     end
   end
 end

@@ -247,7 +247,7 @@ module Fitgem
         raise Fitgem::InvalidArgumentError, 'Must specify resource to fetch intraday time series data for. One of (:calories, :steps, :distance, :floors, or :elevation) is required.'
       end
 
-      unless opts[:date]
+      unless opts[:date] || ( opts[:start_date] && opts[:end_date] )
         raise Fitgem::InvalidArgumentError, 'Must specify the date to fetch intraday time series data for.'
       end
 
@@ -256,19 +256,23 @@ module Fitgem
       end
 
       resource = opts.delete(:resource)
-      date = format_date(opts.delete(:date))
+      date = format_date(opts.delete(:date)) if opts[:date]
       detail_level = opts.delete(:detailLevel)
       time_window_specified = opts[:startTime] || opts[:endTime]
+      date_window_specified = opts[:start_date] && opts[:end_date]
       resource_path = "/user/#{@user_id}/activities/"
 
       if time_window_specified
         start_time = format_time(opts.delete(:startTime))
         end_time = format_time(opts.delete(:endTime))
         resource_path += "#{resource}/date/#{date}/1d/#{detail_level}/time/#{start_time}/#{end_time}.json"
+      elsif date_window_specified
+        start_date = format_date(opts.delete(:start_date))
+        end_date   = format_date(opts.delete(:end_date))
+        resource_path += "#{resource}/date/#{start_date}/#{end_date}.json"
       else
         resource_path += "#{resource}/date/#{date}/1d/#{detail_level}.json"
       end
-
       get(resource_path, opts)
     end
   end
