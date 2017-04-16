@@ -17,7 +17,6 @@ require 'fitgem/devices'
 require 'fitgem/notifications'
 require 'fitgem/alarms'
 require 'fitgem/badges'
-require 'fitgem/locales'
 require 'date'
 require 'uri'
 
